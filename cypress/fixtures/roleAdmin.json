@@ -1,0 +1,28 @@
+{
+    "listTitle": "Listado de roles",
+    "roleName": "adminCypress",
+    "roleNameEdited": "adminCypressEdited",
+    "allProvince": [
+        "01:BOCAS DEL TORO",
+        "02:COCLÉ",
+        "03:COLÓN",
+        "04:CHIRIQUÍ",
+        "05:DARIEN",
+        "06:HERRERA",
+        "07:LOS SANTOS",
+        "08:PANAMÁ",
+        "09:VERAGUAS",
+        "10:COMARCA GUNA YALA",
+        "11:EMBERA WOUNAAN ",
+        "12:COMARCA NGÄBE BUGLÉ",
+        "13:PANAMÁ OESTE"
+    ],
+    "allActions": [
+        "1:Crear",
+        "2:Editar",
+        "3:Consultar",
+        "4:Deshabilitar",
+        "5:Autorizar",
+        "6:Rechazar"
+    ]
+}
