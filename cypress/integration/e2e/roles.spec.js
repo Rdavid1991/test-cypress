@@ -9,9 +9,7 @@ beforeEach(() => {
 });
 
 describe("Manejo de roles", () => {
-
   it("Registrar role", () => {
- 
     cy.get("#addRole").click();
 
     cy.get("#name").type(json.roleName);
@@ -52,7 +50,7 @@ describe("Manejo de roles", () => {
 
     cy.get(".btn-success").click();
 
-    cy.get('.swal2-confirm').click();
+    cy.get(".swal2-confirm").click();
 
     cy.get("#swal2-html-container").should(
       "have.text",
@@ -65,6 +63,5 @@ describe("Manejo de roles", () => {
     cy.get(".swal2-confirm").click();
 
     cy.get("table").contains(json.roleNameEdited);
-    
   });
 });

@@ -1,11 +1,6 @@
 import { loginSuccess } from "../../support/functions/login";
 
 beforeEach(()=>{
-    cy.on('uncaught:exception', (err, runnable) => {
-        // returning false here prevents Cypress from
-        // failing the test
-        return false
-      })
     cy.visit('http://localhost:8080/PreCOLMENA.WebApp');
 });
 

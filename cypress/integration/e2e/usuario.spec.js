@@ -3,17 +3,12 @@ import { goUserModule } from "../../support/functions/userAdmin";
 
 beforeEach(() => {
   cy.visit("http://localhost:8080/PreCOLMENA.WebApp/");
+  loginSuccess();
+  goUserModule();
 });
 
 describe("Modulo usuario", () => {
-  it("Ir al modulo usuario", () => {
-    loginSuccess();
-    goUserModule();
-  });
-
   it("Crear usuario", () => {
-    loginSuccess();
-    goUserModule();
     cy.get(".mb-5 > :nth-child(1) > :nth-child(2) > .btn").click();
 
     cy.get("#name").type("Cypress", { force: true });
@@ -46,9 +41,6 @@ describe("Modulo usuario", () => {
   });
 
   it("Editar usuario", () => {
-    loginSuccess();
-    goUserModule();
-
     cy.contains("Cypress").parent().find("a.btn").click();
 
     cy.get("#name").clear();
