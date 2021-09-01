@@ -1,13 +1,16 @@
+import { baseURL } from "../../fixtures/global.json";
 import { loginSuccess } from "../../support/functions/login";
 import { goUserModule } from "../../support/functions/userAdmin";
 
-beforeEach(() => {
-  cy.visit("http://localhost:8080/PreCOLMENA.WebApp/");
-  loginSuccess();
-  goUserModule();
-});
 
 describe("Modulo usuario", () => {
+  
+  beforeEach(() => {
+    cy.visit(baseURL);
+    loginSuccess();
+    goUserModule();
+  });
+
   it("Crear usuario", () => {
     cy.get(".mb-5 > :nth-child(1) > :nth-child(2) > .btn").click();
 
@@ -15,7 +18,7 @@ describe("Modulo usuario", () => {
     cy.get("#surname").type("Cypress", { force: true });
     cy.get("#email").type("Cypres@mail.com", { force: true });
     cy.get("#username").type("Cypress", { force: true });
-    cy.viewport(1366, 629);
+  
     cy.get("#mobilephone").click();
     cy.get("#mobilephone").type("1231-2312");
 

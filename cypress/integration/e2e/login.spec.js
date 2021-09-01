@@ -1,15 +1,16 @@
+import { baseURL } from "../../fixtures/global.json";
 import { loginSuccess } from "../../support/functions/login";
 
-beforeEach(()=>{
-    cy.visit('http://localhost:8080/PreCOLMENA.WebApp');
-});
 
-describe('Login' , ()=> {
+describe('Login', () => {
+    beforeEach(() => {
+        cy.visit(baseURL);
+    });
 
     it('Iniciar sesion correctamente', () => {
         loginSuccess();
     });
-    
+
     it('Titulo de formulario', () => {
         cy.get('.card-title > h6').should('have.text', 'Acceder:')
     });

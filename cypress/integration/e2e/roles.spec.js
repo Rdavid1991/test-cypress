@@ -1,14 +1,17 @@
+import { baseURL } from "../../fixtures/global.json";
 import json from "../../fixtures/roleAdmin.json";
 import { loginSuccess } from "../../support/functions/login";
 import { goModuleRoles } from "../../support/functions/userAdmin";
 
-beforeEach(() => {
-  cy.visit("http://localhost:8080/PreCOLMENA.WebApp/");
-  loginSuccess();
-  goModuleRoles();
-});
 
 describe("Manejo de roles", () => {
+
+  beforeEach(() => {
+    cy.visit(baseURL);
+    loginSuccess();
+    goModuleRoles();
+  });
+  
   it("Registrar role", () => {
     cy.get("#addRole").click();
 
