@@ -1,5 +1,5 @@
-import { baseURL } from "../../fixtures/global.json";
-import json from "../../fixtures/roleAdmin.json";
+import { baseURL } from "../../fixtures/globalElemets.json";
+import json from "../../fixtures/globalValues.json";
 import { loginSuccess } from "../../support/functions/login";
 import { goModuleRoles } from "../../support/functions/userAdmin";
 

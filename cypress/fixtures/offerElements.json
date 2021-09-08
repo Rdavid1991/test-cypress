@@ -1,0 +1,59 @@
+{
+    "offer": {
+        "title": ".mb-5 > :nth-child(1) > .text-center",
+        "btnRegister": "#addOffer",
+        "colmena1": ".precol-group-check > :nth-child(1) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena2": ".precol-group-check > :nth-child(2) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena3": ".precol-group-check > :nth-child(3) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena4": ".precol-group-check > :nth-child(4) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena5": ".precol-group-check > :nth-child(5) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena6": ".precol-group-check > :nth-child(6) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena7": ".precol-group-check > :nth-child(7) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena8": ".precol-group-check > :nth-child(8) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena9": ".precol-group-check > :nth-child(9) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena10": ".precol-group-check > :nth-child(10) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena11": ".precol-group-check > :nth-child(11) > .form-check > .form-check-input[name='watch_col[]']",
+        "colmena12": ".precol-group-check > :nth-child(12) > .form-check > .form-check-inpu[name='watch_col[]'t"
+    },
+    "check": {
+        "priorityActions": {
+            "priority1": "#group-checkbox-priority-actions > :nth-child(1) > .form-check-input[name='priorityaction[]']",
+            "priority2": "#group-checkbox-priority-actions > :nth-child(2) > .form-check-input[name='priorityaction[]']",
+            "priority3": "#group-checkbox-priority-actions > :nth-child(3) > .form-check-input[name='priorityaction[]']",
+            "priority4": "#group-checkbox-priority-actions > :nth-child(4) > .form-check-input[name='priorityaction[]']",
+            "priority5": "#group-checkbox-priority-actions > :nth-child(5) > .form-check-input[name='priorityaction[]']",
+            "priority6": "#group-checkbox-priority-actions > :nth-child(6) > .form-check-input[name='priorityaction[]']",
+            "priority7": "#group-checkbox-priority-actions > :nth-child(7) > .form-check-input[name='priorityaction[]']",
+            "priority8": "#group-checkbox-priority-actions > :nth-child(8) > .form-check-input[name='priorityaction[]']",
+            "priority9": "#group-checkbox-priority-actions > :nth-child(9) > .form-check-input[name='priorityaction[]']",
+            "priority10": "#group-checkbox-priority-actions > :nth-child(10) > .form-check-input[name='priorityaction[]']"
+        },
+        "odss": {
+            "odss1": "#step3 > #group-checkbox-odss > :nth-child(1) > .form-check > .form-check-input[name='odss[]']",
+            "odss2": "#step3 > #group-checkbox-odss > :nth-child(2) > .form-check > .form-check-input[name='odss[]']",
+            "odss3": "#step3 > #group-checkbox-odss > :nth-child(3) > .form-check > .form-check-input[name='odss[]']",
+            "odss4": "#step3 > #group-checkbox-odss > :nth-child(4) > .form-check > .form-check-input[name='odss[]']",
+            "odss5": "#step3 > #group-checkbox-odss > :nth-child(5) > .form-check > .form-check-input[name='odss[]']"
+        },
+        "populationAge": {
+            "age1": "#group-checkbox-population-age > :nth-child(2) > .form-check > .form-check-input[name='population_age[]']",
+            "age2": "#group-checkbox-population-age > :nth-child(3) > .form-check > .form-check-input[name='population_age[]']",
+            "age3": "#group-checkbox-population-age > :nth-child(4) > .form-check > .form-check-input[name='population_age[]']",
+            "age4": "#group-checkbox-population-age > :nth-child(5) > .form-check > .form-check-input[name='population_age[]']"
+        },
+        "populationTeam": {
+            "team1": "#group-checkbox-population-team > :nth-child(2) > .form-check > .form-check-input[name='population_team[]']",
+            "team2": "#group-checkbox-population-team > :nth-child(3) > .form-check > .form-check-input[name='population_team[]']",
+            "team3": "#group-checkbox-population-team > :nth-child(4) > .form-check > .form-check-input[name='population_team[]']",
+            "team4": "#group-checkbox-population-team > :nth-child(5) > .form-check > .form-check-input[name='population_team[]']",
+            "team5": "#group-checkbox-population-team > :nth-child(6) > .form-check > .form-check-input[name='population_team[]']"
+        },
+        "populationSex": {
+            "sex1": "#group-checkbox-population-sex > :nth-child(2) > .form-check > .form-check-input[name='population_sex[]']",
+            "sex2": "#group-checkbox-population-sex > :nth-child(3) > .form-check > .form-check-input[name='population_sex[]']"
+        }
+    },
+    "text": {
+        "title": "Listado de ofertas"
+    }
+}

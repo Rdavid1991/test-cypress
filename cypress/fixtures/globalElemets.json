@@ -1,0 +1,11 @@
+{
+  "baseURL": "http://localhost:8080/PreCOLMENA.WebApp",
+  "select": {
+    "province": "#province",
+    "district": "#district",
+    "county": "#county"
+  },
+  "element": {
+    "loader": "#loader"
+  }
+}

@@ -1,4 +1,4 @@
-import { baseURL } from "../../fixtures/global.json";
+import { baseURL } from "../../fixtures/globalElemets.json";
 import { loginSuccess } from "../../support/functions/login";
 
 
