@@ -54,6 +54,8 @@
         }
     },
     "text": {
-        "title": "Listado de ofertas"
+        "title": "Listado de ofertas",
+        "offerName" : "Oferta cypress",
+        "phoneNumber":"231-3774"
     }
 }
