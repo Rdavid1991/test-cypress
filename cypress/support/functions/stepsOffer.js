@@ -66,13 +66,13 @@ export const stepsCrear = {
 
     cy.get("#offerDescription").type("Probar la creación de oferta");
 
-    cy.get("#budgetItem").type("25000");
+    cy.get("#budgetItem").type(text.budget);
 
     cy.get("#generalOrCentralProg").type("Cypress");
 
-    cy.get("#estimatedBudget").type("2.500,00");
+    cy.get("#estimatedBudget").type(text.budget);
 
-    cy.get("#decentralizedFunds").type("5.000,00");
+    cy.get("#decentralizedFunds").type(text.budget);
 
     cy.get("#OtherSourcesOfFinancing").type("Cypress");
 
@@ -104,7 +104,7 @@ export const stepsCrear = {
   },
 };
 
-export const stepsEditar = {
+export const stepsValidate = {
   step1: () => {
     cy.get(select.province)
       .find(":selected")
@@ -224,7 +224,7 @@ export const stepsEditar = {
 
     cy.get("#budgetItem").should((input) => {
       const value = input.val();
-      expect(value).to.equal("25000");
+      expect(value).to.equal(text.budget);
     });
 
     cy.get("#generalOrCentralProg").should((input) => {
@@ -234,12 +234,12 @@ export const stepsEditar = {
 
     cy.get("#estimatedBudget").should((input) => {
       const value = input.val();
-      expect(value).to.equal("2.500,00");
+      expect(value).to.equal(text.budget);
     });
 
     cy.get("#decentralizedFunds").should((input) => {
       const value = input.val();
-      expect(value).to.equal("5.000,00");
+      expect(value).to.equal(text.budget);
     });
 
     cy.get("#OtherSourcesOfFinancing").should((input) => {

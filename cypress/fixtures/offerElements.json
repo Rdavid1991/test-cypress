@@ -56,6 +56,7 @@
     "text": {
         "title": "Listado de ofertas",
         "offerName" : "Oferta cypress",
-        "phoneNumber":"231-3774"
+        "phoneNumber":"231-3774",
+        "budget":"2,500.00"
     }
 }

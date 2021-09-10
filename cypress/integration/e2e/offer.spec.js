@@ -1,8 +1,12 @@
 import { baseURL, element } from "../../fixtures/globalElemets.json";
-import { offer,text } from "../../fixtures/offerElements.json";
+import { offer, text } from "../../fixtures/offerElements.json";
 
 import { loginSuccess } from "../../support/functions/login";
-import { steps, stepsCrear, stepsEditar } from "../../support/functions/stepsOffer";
+import {
+  steps,
+  stepsCrear,
+  stepsValidate,
+} from "../../support/functions/stepsOffer";
 import { goModuleOffer } from "../../support/functions/userAdmin";
 
 describe("Modulo oferta", () => {
@@ -40,18 +44,15 @@ describe("Modulo oferta", () => {
     cy.get(".swal2-confirm").click();
   });
 
+  it("Validar informacion creada", () => {
+    cy.contains(text.offerName).parent().find("a.btn").click();
 
-  it('Validar informacion creada', () => {
+    cy.get(element.loader).should("not.be.visible");
 
-	cy.contains(text.offerName).parent().find("a.btn").click();
-
-	cy.get(element.loader).should("not.be.visible");
-
-	stepsEditar.step1()
-	stepsEditar.step2()
-	stepsEditar.step3()
-	stepsEditar.step4()
-	stepsEditar.step5()
-
+    stepsValidate.step1();
+    stepsValidate.step2();
+    stepsValidate.step3();
+    stepsValidate.step4();
+    stepsValidate.step5();
   });
 });
