@@ -53,10 +53,29 @@
             "sex2": "#group-checkbox-population-sex > :nth-child(3) > .form-check > .form-check-input[name='population_sex[]']"
         }
     },
-    "text": {
-        "title": "Listado de ofertas",
+    "elements":{
+        "place":"#place"
+       
+    },
+
+    "text":{
+        "title": "Listado de ofertas"
+    },
+
+    "createValues": {
+        
         "offerName" : "Oferta cypress",
         "phoneNumber":"231-3774",
-        "budget":"2,500.00"
+        "budget":"2,500.00",
+        "sProvide" : "Cypress Provider",
+        "place":"ComunidadCypress"
+    },
+    "editedValues": {
+        "offerName" : "Oferta cypress editado",
+        "phoneNumber":"6813-4425",
+        "budget":"3,800.00",
+        "sProvide" : "Cypress Provider Editado",
+        "place":"ComunidadCypressEditado"
     }
+
 }

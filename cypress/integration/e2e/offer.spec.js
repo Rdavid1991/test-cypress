@@ -1,11 +1,10 @@
 import { baseURL, element } from "../../fixtures/globalElemets.json";
-import { offer, text } from "../../fixtures/offerElements.json";
+import { offer, createValues } from "../../fixtures/offerElements.json";
 
 import { loginSuccess } from "../../support/functions/login";
 import {
-  steps,
   stepsCrear,
-  stepsValidate,
+  stepsValidateAndEdit,
 } from "../../support/functions/stepsOffer";
 import { goModuleOffer } from "../../support/functions/userAdmin";
 
@@ -45,14 +44,14 @@ describe("Modulo oferta", () => {
   });
 
   it("Validar informacion creada", () => {
-    cy.contains(text.offerName).parent().find("a.btn").click();
+    cy.contains(createValues.offerName).parent().find("a.btn").click();
 
     cy.get(element.loader).should("not.be.visible");
 
-    stepsValidate.step1();
-    stepsValidate.step2();
-    stepsValidate.step3();
-    stepsValidate.step4();
-    stepsValidate.step5();
+    stepsValidateAndEdit.step1();
+    stepsValidateAndEdit.step2();
+    stepsValidateAndEdit.step3();
+    stepsValidateAndEdit.step4();
+    stepsValidateAndEdit.step5();
   });
 });
