@@ -28,19 +28,32 @@ pipeline {
         
         stage('Despliegando') {
             steps {
-                sh "cd PreCOLMENA.WebApp"
-                sh "echo hola"
-                sh "pwd"
                 sh '''
                     cp -r ./PreCOLMENA.WebApp ./copiaColmena
                     cd copiaColmena
                     rm .prettierrc.json .gitignore
                     rm -r db_files .git
                 '''
-                    
+                
                 sh '''
-                    ssh -T -i /var/lib/jenkins/id_rsa vagrant@10.0.2.15
-                    pwd
+                    DBCONECTION="<?php\n\
+					define('CONECTION_INFO',\n\
+					\tarray(\n\
+					\t\t'Database' => '${DATABASE}',\n\
+					\t\t'UID' => '${USER}',\n\
+					\t\t'PWD' => '${PASSWORD}',\n\
+					\t\t'CharacterSet' => 'UTF-8',\n\
+					\t\t'ReturnDatesAsStrings' => TRUE\n\
+					\t)\n\
+					\t);\n\
+					define('SERVER', 'localhost');"
+					
+					echo $DBCONECTION >> copiaColmena/backendphp/env/db_conf.php
+                '''
+                
+                sh '''
+                    ssh -i /var/lib/jenkins/mides2.pem centos@10.104.20.10 "rm -fr /var/www/html/PreCOLMENA.WebApp"
+                    scp -r -i /var/lib/jenkins/mides2.pem ./copiaColmena/ centos@10.104.20.10:/var/www/html/PreCOLMENA.WebApp/
                 '''
             }
         }

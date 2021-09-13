@@ -35,6 +35,9 @@
         "step4": "[aria-label='4 / 5']",
         "step5": "[aria-label='5 / 5']"
     },
+    "select":{
+        "proyectStatus":"#proyectStatus"
+    },
     "check": {
         "priorityActions": {
             "priority1": "#group-checkbox-priority-actions > :nth-child(1) > .form-check-input[name='priorityaction[]']",

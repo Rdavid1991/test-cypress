@@ -1,17 +1,15 @@
 import { baseURL } from "../../fixtures/globalElemets.json";
-import json from "../../fixtures/globalValues.json";
+import json, { allProvince, allActions } from "../../fixtures/globalValues.json";
 import { loginSuccess } from "../../support/functions/login";
 import { goModuleRoles } from "../../support/functions/userAdmin";
 
-
 describe("Manejo de roles", () => {
-
   beforeEach(() => {
     cy.visit(baseURL);
     loginSuccess();
     goModuleRoles();
   });
-  
+
   it("Registrar role", () => {
     cy.get("#addRole").click();
 
@@ -19,19 +17,26 @@ describe("Manejo de roles", () => {
 
     cy.get("#type").select("1", { force: true });
 
-    cy.get("#province").select(json.allProvince, { force: true });
+    cy.get("#province").select(
+      [
+        allProvince["01"],
+        allProvince["05"],
+        allProvince["03"]
+      ],
+      { force: true }
+    );
 
-    cy.get("#offer").select(json.allActions, { force: true });
+    cy.get("#offer").select(allActions, { force: true });
 
-    cy.get("#planProv").select(json.allActions, { force: true });
+    cy.get("#planProv").select(allActions, { force: true });
 
-    cy.get("#segPlan").select(json.allActions, { force: true });
+    cy.get("#segPlan").select(allActions, { force: true });
 
-    cy.get("#managUser").select(json.allActions, { force: true });
+    cy.get("#managUser").select(allActions, { force: true });
 
-    cy.get("#managRole").select(json.allActions, { force: true });
+    cy.get("#managRole").select(allActions, { force: true });
 
-    cy.get("#report").select(json.allActions, { force: true });
+    cy.get("#report").select(allActions, { force: true });
 
     cy.get(".btn-success").click();
 
