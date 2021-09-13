@@ -6,7 +6,12 @@ pipeline {
             steps {
                 
                 //Borrado de carpeta de prueba
-                sh "rm -r copiaColmena"
+                sh  '''
+                    DIR="copiaColmena/"
+                    if [ -d "$DIR" ]; then
+                        rm -r copiaColmena
+                    fi
+                    '''
                 
                 sh  '''
                     DIR="PreCOLMENA.WebApp/"
@@ -23,11 +28,19 @@ pipeline {
         
         stage('Despliegando') {
             steps {
+                sh "cd PreCOLMENA.WebApp"
+                sh "echo hola"
+                sh "pwd"
                 sh '''
                     cp -r ./PreCOLMENA.WebApp ./copiaColmena
                     cd copiaColmena
                     rm .prettierrc.json .gitignore
                     rm -r db_files .git
+                '''
+                    
+                sh '''
+                    ssh -T -i /var/lib/jenkins/id_rsa vagrant@10.0.2.15
+                    pwd
                 '''
             }
         }
