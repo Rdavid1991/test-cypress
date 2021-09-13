@@ -1,19 +1,39 @@
 {
-    "offer": {
-        "title": ".mb-5 > :nth-child(1) > .text-center",
+    "buttons": {
         "btnRegister": "#addOffer",
-        "colmena1": ".precol-group-check > :nth-child(1) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena2": ".precol-group-check > :nth-child(2) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena3": ".precol-group-check > :nth-child(3) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena4": ".precol-group-check > :nth-child(4) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena5": ".precol-group-check > :nth-child(5) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena6": ".precol-group-check > :nth-child(6) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena7": ".precol-group-check > :nth-child(7) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena8": ".precol-group-check > :nth-child(8) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena9": ".precol-group-check > :nth-child(9) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena10": ".precol-group-check > :nth-child(10) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena11": ".precol-group-check > :nth-child(11) > .form-check > .form-check-input[name='watch_col[]']",
-        "colmena12": ".precol-group-check > :nth-child(12) > .form-check > .form-check-inpu[name='watch_col[]'t"
+        "next": "#next",
+        "addAlly": "button[data-target='#addAlly']",
+        "addContactPerson": "button[data-target='#addContactPerson']",
+        "saveAlly": "#saveAlly",
+        "saveContacPerson": "#saveContacPerson"
+    },
+    "inputs": {
+        "namePerson": "#namePerson",
+        "phonePerson": "#phonePerson",
+        "emailPerson": "#emailPerson",
+        "unAdm": "#unAdm",
+        "sProvide": "#sProvide",
+        "otherSourcesOfFinancing": "#OtherSourcesOfFinancing",
+        "decentralizedFunds": "#decentralizedFunds",
+        "estimatedBudget": "#estimatedBudget",
+        "offerDescription": "#offerDescription",
+        "budgetItem": "#budgetItem",
+        "generalOrCentralProg": "#generalOrCentralProg",
+        "offerName": "#offerName",
+        "offerObjective": "#offerObjective",
+        "sinipCode": "#sinipCode",
+        "place": "#place"
+    },
+    "modals": {
+        "addAlly": "#addAlly",
+        "addContactPerson": "#addContactPerson"
+    },
+    "stepsIdentify": {
+        "step1": "[aria-label='1 / 5']",
+        "step2": "[aria-label='2 / 5']",
+        "step3": "[aria-label='3 / 5']",
+        "step4": "[aria-label='4 / 5']",
+        "step5": "[aria-label='5 / 5']"
     },
     "check": {
         "priorityActions": {
@@ -33,7 +53,10 @@
             "odss2": "#step3 > #group-checkbox-odss > :nth-child(2) > .form-check > .form-check-input[name='odss[]']",
             "odss3": "#step3 > #group-checkbox-odss > :nth-child(3) > .form-check > .form-check-input[name='odss[]']",
             "odss4": "#step3 > #group-checkbox-odss > :nth-child(4) > .form-check > .form-check-input[name='odss[]']",
-            "odss5": "#step3 > #group-checkbox-odss > :nth-child(5) > .form-check > .form-check-input[name='odss[]']"
+            "odss5": "#step3 > #group-checkbox-odss > :nth-child(5) > .form-check > .form-check-input[name='odss[]']",
+            "odss6": "#step3 > #group-checkbox-odss > :nth-child(6) > .form-check > .form-check-input[name='odss[]']",
+            "odss7": "#step3 > #group-checkbox-odss > :nth-child(7) > .form-check > .form-check-input[name='odss[]']",
+            "odss8": "#step3 > #group-checkbox-odss > :nth-child(8) > .form-check > .form-check-input[name='odss[]']"
         },
         "populationAge": {
             "age1": "#group-checkbox-population-age > :nth-child(2) > .form-check > .form-check-input[name='population_age[]']",
@@ -51,31 +74,23 @@
         "populationSex": {
             "sex1": "#group-checkbox-population-sex > :nth-child(2) > .form-check > .form-check-input[name='population_sex[]']",
             "sex2": "#group-checkbox-population-sex > :nth-child(3) > .form-check > .form-check-input[name='population_sex[]']"
+        },
+        "watchColmena": {
+            "colmena1": ".precol-group-check > :nth-child(1) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena2": ".precol-group-check > :nth-child(2) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena3": ".precol-group-check > :nth-child(3) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena4": ".precol-group-check > :nth-child(4) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena5": ".precol-group-check > :nth-child(5) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena6": ".precol-group-check > :nth-child(6) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena7": ".precol-group-check > :nth-child(7) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena8": ".precol-group-check > :nth-child(8) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena9": ".precol-group-check > :nth-child(9) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena10": ".precol-group-check > :nth-child(10) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena11": ".precol-group-check > :nth-child(11) > .form-check > .form-check-input[name='watch_col[]']",
+            "colmena12": ".precol-group-check > :nth-child(12) > .form-check > .form-check-inpu[name='watch_col[]'t"
         }
     },
-    "elements":{
-        "place":"#place"
-       
-    },
-
-    "text":{
-        "title": "Listado de ofertas"
-    },
-
-    "createValues": {
-        
-        "offerName" : "Oferta cypress",
-        "phoneNumber":"231-3774",
-        "budget":"2,500.00",
-        "sProvide" : "Cypress Provider",
-        "place":"ComunidadCypress"
-    },
-    "editedValues": {
-        "offerName" : "Oferta cypress editado",
-        "phoneNumber":"6813-4425",
-        "budget":"3,800.00",
-        "sProvide" : "Cypress Provider Editado",
-        "place":"ComunidadCypressEditado"
+    "labels": {
+        "title": ".mb-5 > :nth-child(1) > .text-center"
     }
-
 }

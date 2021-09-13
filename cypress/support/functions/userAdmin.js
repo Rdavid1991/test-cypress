@@ -1,5 +1,5 @@
 import json from "../../fixtures/globalValues.json";
-import { offer, text } from "../../fixtures/offerElements.json";
+import { fixedValues } from "../../fixtures/offer/offerValues.json";
 
 module.exports = {
   goUserModule: () => {
@@ -18,8 +18,4 @@ module.exports = {
     );
   },
 
-  goModuleOffer: () => {
-    cy.get("#goOffer").click();
-    cy.get(offer.title).should("have.text", text.title);
-  },
 };

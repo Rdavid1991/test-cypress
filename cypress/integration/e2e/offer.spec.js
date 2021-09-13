@@ -1,22 +1,26 @@
 import { baseURL, element } from "../../fixtures/globalElemets.json";
-import { offer, createValues } from "../../fixtures/offerElements.json";
+import { createValues, fixedValues } from "../../fixtures/offer/offerValues.json";
+import { buttons, labels } from "../../fixtures/offer/offerElements.json";
 
 import { loginSuccess } from "../../support/functions/login";
 import {
-  stepsCrear,
-  stepsValidateAndEdit,
+  stepsCrear
 } from "../../support/functions/stepsOffer";
-import { goModuleOffer } from "../../support/functions/userAdmin";
+import {
+  stepsValidateAndEdit
+} from "../../support/functions/stepsOfferEdit";
+
 
 describe("Modulo oferta", () => {
   beforeEach(() => {
     cy.visit(baseURL);
     loginSuccess();
-    goModuleOffer();
+    cy.get("#goOffer").click();
+    cy.get(labels.title).should("have.text", fixedValues.listTitle);
   });
 
   it("Registrar oferta", () => {
-    cy.get(offer.btnRegister).click();
+    cy.get(buttons.btnRegister).click();
 
     cy.get(element.loader).should("not.be.visible");
 
@@ -53,5 +57,7 @@ describe("Modulo oferta", () => {
     stepsValidateAndEdit.step3();
     stepsValidateAndEdit.step4();
     stepsValidateAndEdit.step5();
+
+    cy.get("button[type=submit]").click();
   });
 });
