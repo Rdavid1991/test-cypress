@@ -1,15 +1,13 @@
 import { baseURL, element } from "../../fixtures/globalElemets.json";
-import { createValues, fixedValues } from "../../fixtures/offer/offerValues.json";
+import {
+  createValues,
+  fixedValues,
+} from "../../fixtures/offer/offerValues.json";
 import { buttons, labels } from "../../fixtures/offer/offerElements.json";
 
 import { loginSuccess } from "../../support/functions/login";
-import {
-  stepsCrear
-} from "../../support/functions/stepsOffer";
-import {
-  stepsValidateAndEdit
-} from "../../support/functions/stepsOfferEdit";
-
+import { stepsCrear } from "../../support/functions/stepsOffer";
+import { stepsValidateAndEdit } from "../../support/functions/stepsOfferEdit";
 
 describe("Modulo oferta", () => {
   beforeEach(() => {
