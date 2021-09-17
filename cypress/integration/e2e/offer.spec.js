@@ -9,15 +9,23 @@ import { loginSuccess } from "../../support/functions/login";
 import { stepsCrear } from "../../support/functions/stepsOffer";
 import { stepsValidateAndEdit } from "../../support/functions/stepsOfferEdit";
 
+import { sidebarElements } from "../../support/module/";
+
 describe("Modulo oferta", () => {
   beforeEach(() => {
     cy.visit(baseURL);
-    loginSuccess();
-    cy.get("#goOffer").click();
-    cy.get(labels.title).should("have.text", fixedValues.listTitle);
   });
 
   it("Registrar oferta", () => {
+    loginSuccess("Oferta/Crear");
+
+    cy.get(sidebarElements.goRoles).should("not.exist");
+    cy.get(sidebarElements.goUsers).should("not.exist");
+
+    cy.get(sidebarElements.goOffer).should("exist").click();
+    
+    cy.get(labels.title).should("have.text", fixedValues.listTitle);
+
     cy.get(buttons.btnRegister).click();
 
     cy.get(element.loader).should("not.be.visible");

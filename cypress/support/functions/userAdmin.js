@@ -10,12 +10,4 @@ module.exports = {
     );
   },
 
-  goModuleRoles: () => {
-    cy.get("#goRoles").click();
-    cy.get(".mb-5 > :nth-child(1) > .text-center").should(
-      "have.text",
-      json.listTitle
-    );
-  },
-
 };

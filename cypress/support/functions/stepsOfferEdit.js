@@ -62,7 +62,7 @@ export const stepsValidateAndEdit = {
         const expected = [
           allCounties["010103"],
           allCounties["010204"],
-          allCounties["020303"],
+          allCounties["020302"],
           allCounties["030503"],
         ];
         expect(

@@ -1,90 +1,193 @@
-import { baseURL } from "../../fixtures/globalElemets.json";
-import { loginSuccess } from "../../support/functions/login";
-import { goUserModule } from "../../support/functions/userAdmin";
+/// <reference types="Cypress" />
 
+import { baseURL } from "../../fixtures/globalElemets.json";
+import loginSuccess from "../../support/functions/login";
+import {
+    globalElements,
+    sidebarElements,
+    userElements,
+    usersValues,
+} from "../../support/module";
+import { globalValues } from "../../support/module/global/globalValues";
 
 describe("Modulo usuario", () => {
-  
-  beforeEach(() => {
-    cy.visit(baseURL);
-    loginSuccess();
-    goUserModule();
-  });
-
-  it("Crear usuario", () => {
-    cy.get(".mb-5 > :nth-child(1) > :nth-child(2) > .btn").click();
-
-    cy.get("#name").type("Cypress", { force: true });
-    cy.get("#surname").type("Cypress", { force: true });
-    cy.get("#email").type("Cypres@mail.com", { force: true });
-    cy.get("#username").type("Cypress", { force: true });
-  
-    cy.get("#mobilephone").click();
-    cy.get("#mobilephone").type("1231-2312");
-
-    cy.get("#role").select("5", { force: true });
-
-    cy.get("#institution").select("53", { force: true });
-
-    cy.get("#province").select("08:PANAMÁ", { force: true });
-    cy.get("#district").select("0808:PANAMÁ ", { force: true });
-    cy.get("#county").select("080806:BETANIA", { force: true });
-
-    cy.get(".btn-success").click();
-
-    cy.get("#swal2-html-container").should(
-      "have.text",
-      "Usuario creado satisfactoriamente",
-      {
-        force: true,
-      }
-    );
-
-    cy.get(".swal2-confirm").click();
-  });
-
-  it("Editar usuario", () => {
-    cy.contains("Cypress").parent().find("a.btn").click();
-
-    cy.get("#name").clear();
-    cy.get("#name").type("CypressEditado", { force: true });
-
-    cy.get("#surname").clear();
-    cy.get("#surname").type("CypressEditado", { force: true });
-
-    cy.get("#email").clear();
-    cy.get("#email").type("CypresEditado@mail.com", { force: true });
-
-    cy.get("#username").clear();
-    cy.get("#username").type("CypressEditado", { force: true });
-
-    cy.get("#role").select("3", { force: true });
-    cy.get("#institution").select("52", { force: true });
-
-    cy.get("#province").select("06:HERRERA", {
-      force: true,
+    beforeEach(() => {
+        cy.visit(baseURL);
     });
 
-    cy.get("#district").select("0604:OCÚ", {
-      force: true,
+    it("Crear usuario", () => {
+        loginSuccess("Usuario/Crear");
+
+        cy.get(sidebarElements.goUsers).click();
+
+        cy.get(userElements.labels.title).should(
+            "have.text",
+            usersValues.created.title
+        );
+
+        cy.get(userElements.buttons.addUser).click();
+
+        cy.get(userElements.fields.name).type(
+            usersValues.created.name,
+            {
+                force: true,
+            }
+        );
+        cy.get(userElements.fields.surname).type(
+            usersValues.created.surname,
+            {
+                force: true,
+            }
+        );
+        cy.get(userElements.fields.email).type(
+            usersValues.created.email,
+            {
+                force: true,
+            }
+        );
+        cy.get(userElements.fields.username).type(
+            usersValues.created.username,
+            {
+                force: true,
+            }
+        );
+
+        cy.get(userElements.fields.mobilephone).type(
+            usersValues.created.mobilephone
+        );
+        cy.get(userElements.selects.role).select(
+            usersValues.created.role,
+            {
+                force: true,
+            }
+        );
+        cy.get(userElements.selects.institution).select(
+            usersValues.created.institution,
+            {
+                force: true,
+            }
+        );
+
+        cy.get(globalElements.selects.province).select(
+            globalValues.allProvince["05"],
+            {
+                force: true,
+            }
+        );
+
+        cy.get(globalElements.selects.district).select(
+            globalValues.allDistricts["0501"],
+            {
+                force: true,
+            }
+        );
+
+        cy.get(globalElements.selects.county).select(
+            globalValues.allCounties["050103"],
+            { force: true }
+        );
+
+        cy.get(userElements.buttons.saveUser).click();
+
+        cy.get(userElements.alert).should(
+            "have.text",
+            usersValues.created.alertSuccess,
+            {
+                force: true,
+            }
+        );
+
+        cy.get(userElements.buttons.alertConfirm).click();
     });
 
-    cy.get("#county").select("060403:LOS LLANOS", {
-      force: true,
+    it("Editar usuario", () => {
+        loginSuccess("Usuario/Editar");
+
+        cy.get(sidebarElements.goUsers).click();
+
+        cy.get(userElements.labels.title).should(
+            "have.text",
+            usersValues.created.title
+        );
+
+        cy.contains(usersValues.created.name)
+            .parent()
+            .find("a.btn")
+            .click();
+
+        cy.get(userElements.fields.name)
+            .clear()
+            .type(usersValues.edited.name, {
+                force: true,
+            });
+
+        cy.get(userElements.fields.surname)
+            .clear()
+            .type(usersValues.edited.surname, {
+                force: true,
+            });
+
+        cy.get(userElements.fields.email)
+            .clear()
+            .type(usersValues.edited.email, {
+                force: true,
+            });
+
+        cy.get(userElements.fields.username)
+            .clear()
+            .type(usersValues.edited.username, {
+                force: true,
+            });
+
+        cy.get(userElements.fields.mobilephone)
+            .clear()
+            .type(usersValues.edited.mobilephone, {
+                force: true,
+            });
+
+        cy.get(userElements.selects.role).select("3", {
+            force: true,
+        });
+        cy.get(userElements.selects.institution).select(
+            "52",
+            {
+                force: true,
+            }
+        );
+
+        cy.get(globalElements.selects.province).select(
+            globalValues.allProvince["03"],
+            {
+                force: true,
+            }
+        );
+
+        cy.get(globalElements.selects.district).select(
+            globalValues.allDistricts["0304"],
+            {
+                force: true,
+            }
+        );
+
+        cy.get(globalElements.selects.county).select(
+            globalValues.allCounties["030403"],
+            {
+                force: true,
+            }
+        );
+
+        cy.get(userElements.buttons.saveUser).click();
+
+        cy.get(userElements.buttons.alertConfirm).click();
+
+        cy.get(userElements.alert).should(
+            "have.text",
+            usersValues.edited.alertSuccess,
+            {
+                force: true,
+            }
+        );
+
+        cy.get(userElements.buttons.alertConfirm).click();
     });
-
-    cy.get(".btn-success").click();
-
-    cy.get(".swal2-confirm").click();
-
-    cy.get("#swal2-html-container").should(
-      "have.text",
-      "Usuario editado satisfactoriamente",
-      {
-        force: true,
-      }
-    );
-
-    cy.get(".swal2-confirm").click();
-  });
 });

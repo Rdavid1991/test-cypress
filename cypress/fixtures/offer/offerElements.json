@@ -40,16 +40,17 @@
     },
     "check": {
         "priorityActions": {
-            "priority1": "#group-checkbox-priority-actions > :nth-child(1) > .form-check-input[name='priorityaction[]']",
-            "priority2": "#group-checkbox-priority-actions > :nth-child(2) > .form-check-input[name='priorityaction[]']",
-            "priority3": "#group-checkbox-priority-actions > :nth-child(3) > .form-check-input[name='priorityaction[]']",
-            "priority4": "#group-checkbox-priority-actions > :nth-child(4) > .form-check-input[name='priorityaction[]']",
-            "priority5": "#group-checkbox-priority-actions > :nth-child(5) > .form-check-input[name='priorityaction[]']",
-            "priority6": "#group-checkbox-priority-actions > :nth-child(6) > .form-check-input[name='priorityaction[]']",
-            "priority7": "#group-checkbox-priority-actions > :nth-child(7) > .form-check-input[name='priorityaction[]']",
-            "priority8": "#group-checkbox-priority-actions > :nth-child(8) > .form-check-input[name='priorityaction[]']",
-            "priority9": "#group-checkbox-priority-actions > :nth-child(9) > .form-check-input[name='priorityaction[]']",
-            "priority10": "#group-checkbox-priority-actions > :nth-child(10) > .form-check-input[name='priorityaction[]']"
+
+            "priority1": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(1) > .d-flex > .form-check-input",
+            "priority2": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(2) > .d-flex > .form-check-input",
+            "priority3": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(3) > .d-flex > .form-check-input",
+            "priority4": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(4) > .d-flex > .form-check-input",
+            "priority5": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(5) > .d-flex > .form-check-input",
+            "priority6": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(6) > .d-flex > .form-check-input",
+            "priority7": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(7) > .d-flex > .form-check-input",
+            "priority8": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(8) > .d-flex > .form-check-input",
+            "priority9": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(9) > .d-flex > .form-check-input",
+           "priority10": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(10) > .d-flex > .form-check-input"
         },
         "odss": {
             "odss1": "#step3 > #group-checkbox-odss > :nth-child(1) > .form-check > .form-check-input[name='odss[]']",

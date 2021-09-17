@@ -1,3 +1,5 @@
+/// <reference types="Cypress" />
+
 import {
   allProvince,
   allDistricts,
@@ -37,7 +39,7 @@ export const stepsCrear = {
       [
         allCounties["010103"],
         allCounties["010204"],
-        allCounties["020303"],
+        allCounties["020302"],
         allCounties["030503"],
       ],
       { force: true }
