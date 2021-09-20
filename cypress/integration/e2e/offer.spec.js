@@ -1,19 +1,56 @@
-import { baseURL, element } from "../../fixtures/globalElemets.json";
-import {
-  createValues,
-  fixedValues,
-} from "../../fixtures/offer/offerValues.json";
-import { buttons, labels } from "../../fixtures/offer/offerElements.json";
 
-import { loginSuccess } from "../../support/functions/login";
-import { stepsCrear } from "../../support/functions/stepsOffer";
-import { stepsValidateAndEdit } from "../../support/functions/stepsOfferEdit";
+import { loginSuccess, stepsOfferEdit, stepsOfferCrear } from "../../support/functions/";
+import { sidebarElements, offerElements, offerValues,globalElements, globalValues } from "../../support/module/";
 
-import { sidebarElements } from "../../support/module/";
+const countryCreate = {
+  province: [
+    globalValues.allProvince["01"],
+    globalValues.allProvince["02"],
+    globalValues.allProvince["03"],
+  ],
+
+  district: [
+    globalValues.allDistricts["0101"],
+    globalValues.allDistricts["0102"],
+    globalValues.allDistricts["0203"],
+    globalValues.allDistricts["0305"],
+  ],
+
+  counties: [
+    globalValues.allCounties["010103"],
+    globalValues.allCounties["010204"],
+    globalValues.allCounties["020302"],
+    globalValues.allCounties["030503"],
+  ]
+
+}
+
+const countryEdit = {
+  province: [
+    globalValues.allProvince["04"],
+    globalValues.allProvince["05"]
+  ],
+
+  district: [
+    globalValues.allDistricts["0402"],
+    globalValues.allDistricts["0405"],
+    globalValues.allDistricts["0501"],
+    globalValues.allDistricts["0502"],
+  ],
+
+  counties: [
+    globalValues.allCounties["040202"],
+    globalValues.allCounties["040205"],
+    globalValues.allCounties["040507"],
+    globalValues.allCounties["040515"],
+    globalValues.allCounties["050101"],
+    globalValues.allCounties["050206"],
+  ]
+}
 
 describe("Modulo oferta", () => {
   beforeEach(() => {
-    cy.visit(baseURL);
+    cy.visit(globalValues.baseURL);
   });
 
   it("Registrar oferta", () => {
@@ -23,22 +60,22 @@ describe("Modulo oferta", () => {
     cy.get(sidebarElements.goUsers).should("not.exist");
 
     cy.get(sidebarElements.goOffer).should("exist").click();
-    
-    cy.get(labels.title).should("have.text", fixedValues.listTitle);
 
-    cy.get(buttons.btnRegister).click();
+    cy.get(offerElements.labels.title).should("have.text", offerValues.fixedValues.listTitle);
 
-    cy.get(element.loader).should("not.be.visible");
+    cy.get(offerElements.buttons.btnRegister).click();
 
-    stepsCrear.step1();
+    cy.get(globalElements.element.loader).should("not.be.visible");
 
-    stepsCrear.step2();
+    stepsOfferCrear.step1(countryCreate);
 
-    stepsCrear.step3();
+    stepsOfferCrear.step2();
 
-    stepsCrear.step4();
+    stepsOfferCrear.step3();
 
-    stepsCrear.step5();
+    stepsOfferCrear.step4();
+
+    stepsOfferCrear.step5();
 
     cy.get("button[type=submit]").click();
 
@@ -54,15 +91,23 @@ describe("Modulo oferta", () => {
   });
 
   it("Validar informacion creada", () => {
-    cy.contains(createValues.offerName).parent().find("a.btn").click();
 
-    cy.get(element.loader).should("not.be.visible");
+    loginSuccess("Oferta/Crear");
 
-    stepsValidateAndEdit.step1();
-    stepsValidateAndEdit.step2();
-    stepsValidateAndEdit.step3();
-    stepsValidateAndEdit.step4();
-    stepsValidateAndEdit.step5();
+    cy.get(sidebarElements.goRoles).should("not.exist");
+    cy.get(sidebarElements.goUsers).should("not.exist");
+
+    cy.get(sidebarElements.goOffer).should("exist").click();
+
+    cy.contains(offerValues.createValues.offerName).parent().find("a.btn").click();
+
+    cy.get(globalElements.element.loader).should("not.be.visible");
+
+    stepsOfferEdit.step1(countryCreate, countryEdit);
+    stepsOfferEdit.step2();
+    stepsOfferEdit.step3();
+    stepsOfferEdit.step4();
+    stepsOfferEdit.step5();
 
     cy.get("button[type=submit]").click();
   });

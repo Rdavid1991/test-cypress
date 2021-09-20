@@ -1,4 +1,5 @@
-{
+export const offerElements = {
+
     "buttons": {
         "btnRegister": "#addOffer",
         "next": "#next",
@@ -35,8 +36,8 @@
         "step4": "[aria-label='4 / 5']",
         "step5": "[aria-label='5 / 5']"
     },
-    "select":{
-        "proyectStatus":"#proyectStatus"
+    "select": {
+        "proyectStatus": "#proyectStatus"
     },
     "check": {
         "priorityActions": {
@@ -50,7 +51,7 @@
             "priority7": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(7) > .d-flex > .form-check-input",
             "priority8": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(8) > .d-flex > .form-check-input",
             "priority9": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(9) > .d-flex > .form-check-input",
-           "priority10": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(10) > .d-flex > .form-check-input"
+            "priority10": "#step2 > #group-checkbox-priority-actions > .col-xs-12:nth-child(10) > .d-flex > .form-check-input"
         },
         "odss": {
             "odss1": "#step3 > #group-checkbox-odss > :nth-child(1) > .form-check > .form-check-input[name='odss[]']",
@@ -97,4 +98,5 @@
     "labels": {
         "title": ".mb-5 > :nth-child(1) > .text-center"
     }
+
 }

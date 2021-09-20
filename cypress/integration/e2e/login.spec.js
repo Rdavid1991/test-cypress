@@ -1,14 +1,15 @@
-import { baseURL } from "../../fixtures/globalElemets.json";
-import { loginSuccess } from "../../support/functions/login";
+
+import loginSuccess from "../../support/functions/login";
+import { globalValues } from "../../support/module";
 
 
 describe('Login', () => {
     beforeEach(() => {
-        cy.visit(baseURL);
+        cy.visit(globalValues.baseURL);
     });
 
     it('Iniciar sesion correctamente', () => {
-        loginSuccess();
+        loginSuccess("Login");
     });
 
     it('Titulo de formulario', () => {

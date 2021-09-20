@@ -1,75 +1,118 @@
-import { baseURL } from "../../fixtures/globalElemets.json";
-import json, { allProvince, allActions } from "../../fixtures/globalValues.json";
-import { loginSuccess } from "../../support/functions/login";
-import { goModuleRoles } from "../../support/functions/userAdmin";
+
+import { globalElements, globalValues, roleElements, roleValues, sidebarElements } from "../../support/module"
+import loginSuccess from "../../support/functions/login";
 
 describe("Manejo de roles", () => {
   beforeEach(() => {
-    cy.visit(baseURL);
-    loginSuccess();
-    goModuleRoles();
+    cy.visit(globalValues.baseURL);
   });
 
   it("Registrar role", () => {
-    cy.get("#addRole").click();
 
-    cy.get("#name").type(json.roleName);
+    loginSuccess("Role/Crear");
 
-    cy.get("#type").select("1", { force: true });
+    cy.get(sidebarElements.goRoles)
+      .should("exist")
+      .click({ force: true });
 
-    cy.get("#province").select(
-      [
-        allProvince["01"],
-        allProvince["05"],
-        allProvince["03"]
-      ],
-      { force: true }
-    );
-
-    cy.get("#offer").select(allActions, { force: true });
-
-    cy.get("#planProv").select(allActions, { force: true });
-
-    cy.get("#segPlan").select(allActions, { force: true });
-
-    cy.get("#managUser").select(allActions, { force: true });
-
-    cy.get("#managRole").select(allActions, { force: true });
-
-    cy.get("#report").select(allActions, { force: true });
-
-    cy.get(".btn-success").click();
-
-    cy.get("#swal2-html-container").should(
+    cy.get(roleElements.labels.title).should(
       "have.text",
-      "Role creado satisfactoriamente",
-      {
-        force: true,
-      }
+      roleValues.title
     );
 
-    cy.get(".swal2-confirm").click();
+    cy.get(roleElements.buttons.addRole)
+      .click();
+
+    cy.get(roleElements.fields.name)
+      .type(roleValues.name);
+
+    cy.get(roleElements.selects.type)
+      .select("1", { force: true });
+
+    cy.get(globalElements.selects.province)
+      .select(
+        [
+          globalValues.allProvince["01"],
+          globalValues.allProvince["05"],
+          globalValues.allProvince["03"]
+        ],
+        { force: true }
+      );
+
+    cy.get(roleElements.selects.offer)
+      .select(roleValues.allActions, { force: true });
+
+    cy.get(roleElements.selects.planProv)
+      .select(roleValues.allActions, { force: true });
+
+    cy.get(roleElements.selects.segPlan)
+      .select(roleValues.allActions, { force: true });
+
+    cy.get(roleElements.selects.managUser)
+      .select(roleValues.allActions, { force: true });
+
+    cy.get(roleElements.selects.managRole)
+      .select(roleValues.allActions, { force: true });
+
+    cy.get(roleElements.selects.report)
+      .select(roleValues.allActions, { force: true });
+
+    cy.get(".btn-success")
+      .click();
+
+    cy.get(globalElements.sweetAlert.container)
+      .should(
+        "have.text",
+        roleValues.successCreate,
+        {
+          force: true,
+        }
+      );
+
+    cy.get(globalElements.sweetAlert.confirm)
+      .click();
   });
 
   it("Editar rol", () => {
-    cy.contains(json.roleName).parent().find("a.btn").click();
-    cy.get("#name").clear();
-    cy.get("#name").type(json.roleNameEdited);
+
+    loginSuccess("Role/Crear");
+
+    cy.get(sidebarElements.goRoles)
+      .should("exist")
+      .click({ force: true });
+
+    cy.get(roleElements.labels.title).should(
+      "have.text",
+      roleValues.title
+    );
+
+    cy.contains(roleValues.name)
+      .parent()
+      .find("a.btn")
+      .click();
+
+    cy.get(roleElements.fields.name)
+      .clear()
+      .type(roleValues.edited.name);
 
     cy.get(".btn-success").click();
 
-    cy.get(".swal2-confirm").click();
+    cy.get(globalElements.sweetAlert.confirm)
+      .click();
 
-    cy.get("#swal2-html-container").should(
-      "have.text",
-      "Rol editado satisfactoriamente",
-      {
-        force: true,
-      }
-    );
+    cy.get(globalElements.sweetAlert.container)
+      .should(
+        "have.text",
+        roleValues.successEdited,
+        {
+          force: true,
+        }
+      );
 
-    cy.get(".swal2-confirm").click();
+    cy.get(globalElements.sweetAlert.confirm)
+      .click();
 
-    cy.get("table").contains(json.roleNameEdited);
+    cy.get("table")
+      .contains(roleValues.edited.name);
   });
 });

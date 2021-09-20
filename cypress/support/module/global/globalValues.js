@@ -1,4 +1,5 @@
 export const globalValues = {
+  baseURL: "http://localhost/PreCOLMENA.WebApp",
   allProvince: {
     "01": "01:BOCAS DEL TORO",
     "02": "02:COCLÉ",
@@ -290,12 +291,4 @@ export const globalValues = {
     "050208": "050208:METETI",
     "050209": "050209:COMARCA KUNA DE WARGANDI",
   },
-  allActions: [
-    "1:Crear",
-    "2:Editar",
-    "3:Consultar",
-    "4:Deshabilitar",
-    "5:Autorizar",
-    "6:Rechazar",
-  ],
 };

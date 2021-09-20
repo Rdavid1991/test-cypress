@@ -1,18 +1,17 @@
 /// <reference types="Cypress" />
 
-import { baseURL } from "../../fixtures/globalElemets.json";
 import loginSuccess from "../../support/functions/login";
 import {
     globalElements,
+    globalValues,
     sidebarElements,
     userElements,
     usersValues,
 } from "../../support/module";
-import { globalValues } from "../../support/module/global/globalValues";
 
 describe("Modulo usuario", () => {
     beforeEach(() => {
-        cy.visit(baseURL);
+        cy.visit(globalValues.baseURL);
     });
 
     it("Crear usuario", () => {

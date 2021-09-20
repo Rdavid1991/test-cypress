@@ -1,70 +1,41 @@
-import {
-  allProvince,
-  allDistricts,
-  allCounties,
-} from "../../fixtures/globalValues.json";
-import {
-  createValues,
-  editedValues,
-} from "../../fixtures/offer/offerValues.json";
-import {
-  buttons,
-  inputs,
-  modals,
-  stepsIdentify,
-  check,
-  select as offerSelects,
-} from "../../fixtures/offer/offerElements.json";
-import { select } from "../../fixtures/globalElemets.json";
+/// <reference types="Cypress" />
 
-export const stepsValidateAndEdit = {
-  step1: () => {
-    cy.get(stepsIdentify.step1).should("have.class", "swiper-slide-active");
+import { globalElements,  offerElements, offerValues } from "../../support/module/";
+
+export const stepsOfferEdit = {
+  step1: (countryCreate, countryEdit) => {
+    cy.get(offerElements.stepsIdentify.step1).should("have.class", "swiper-slide-active");
 
     /**
      * Validacion de las provincias distritos y corregimientos
      */
-    cy.get(select.province)
+    cy.get(globalElements.selects.province)
       .find(":selected")
       .should((options) => {
         const actual = [...options].map((o) => o.value);
-        const expected = [
-          allProvince["01"],
-          allProvince["02"],
-          allProvince["03"],
-        ];
+        const expected = countryCreate.province;
         expect(
           actual,
           `Provincias actuales ${actual} y esperadas ${expected}`
         ).to.deep.equal(expected);
       });
 
-    cy.get(select.district)
+    cy.get(globalElements.selects.district)
       .find(":selected")
       .should((options) => {
         const actual = [...options].map((o) => o.value);
-        const expected = [
-          allDistricts["0101"],
-          allDistricts["0102"],
-          allDistricts["0203"],
-          allDistricts["0305"],
-        ];
+        const expected = countryCreate.district;
         expect(
           actual,
           `Distritos actuales ${actual} y esperados ${expected}`
         ).to.deep.eq(expected);
       });
 
-    cy.get(select.county)
+    cy.get(globalElements.selects.county)
       .find(":selected")
       .should((options) => {
         const actual = [...options].map((o) => o.value);
-        const expected = [
-          allCounties["010103"],
-          allCounties["010204"],
-          allCounties["020302"],
-          allCounties["030503"],
-        ];
+        const expected = countryCreate.counties;
         expect(
           actual,
           `Corregimientos actuales ${actual} y esperados ${expected}`
@@ -74,194 +45,182 @@ export const stepsValidateAndEdit = {
     /**
      * Edicion de provincias distritos y corregimientos.
      */
-    cy.get(select.province).select([allProvince["04"], allProvince["05"]], {
+    cy.get(globalElements.selects.province).select(countryEdit.province, {
       force: true,
     });
 
-    cy.get(select.district).select(
-      [
-        allDistricts["0402"],
-        allDistricts["0405"],
-        allDistricts["0501"],
-        allDistricts["0502"],
-      ],
+    cy.get(globalElements.selects.district).select(
+      countryEdit.district,
       { force: true }
     );
 
-    cy.get(select.county).select(
-      [
-        allCounties["040202"],
-        allCounties["040205"],
-        allCounties["040507"],
-        allCounties["040515"],
-        allCounties["050101"],
-        allCounties["050206"],
-      ],
+    cy.get(globalElements.selects.county).select(
+      countryEdit.counties,
       { force: true }
     );
 
-    cy.get(inputs.place).should((input) => {
+    cy.get(offerElements.inputs.place).should((input) => {
       const actual = input.val();
-      expect(actual).to.equal(createValues.place);
+      expect(actual).to.equal(offerValues.createValues.place);
     });
 
-    cy.get(inputs.place).clear();
-    cy.get(inputs.place).type(editedValues.place);
+    cy.get(offerElements.inputs.place).clear();
+    cy.get(offerElements.inputs.place).type(offerValues.editedValues.place);
 
-    cy.get(check.watchColmena.colmena1).should("be.checked");
+    cy.get(offerElements.check.watchColmena.colmena1).should("be.checked");
 
-    cy.get(check.watchColmena.colmena3).check();
-    cy.get(check.watchColmena.colmena7).check();
+    cy.get(offerElements.check.watchColmena.colmena3).check();
+    cy.get(offerElements.check.watchColmena.colmena7).check();
 
-    cy.get(buttons.next).click({ force: true });
+    cy.get(offerElements.buttons.next).click({ force: true });
   },
   step2: () => {
     cy.wait(2000);
 
-    cy.get(stepsIdentify.step2).should("have.class", "swiper-slide-active");
+    cy.get(offerElements.stepsIdentify.step2).should("have.class", "swiper-slide-active");
 
-    cy.get(buttons.addContactPerson).click();
+    cy.get(offerElements.buttons.addContactPerson).click();
 
-    cy.get(modals.addContactPerson).should("to.be.visible");
+    cy.get(offerElements.modals.addContactPerson).should("to.be.visible");
 
-    cy.get(inputs.namePerson).should((input) => {
+    cy.get(offerElements.inputs.namePerson).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.namePerson);
+      expect(value).to.equal(offerValues.createValues.namePerson);
     });
 
-    cy.get(inputs.namePerson).clear();
-    cy.get(inputs.namePerson).type(editedValues.namePerson);
+    cy.get(offerElements.inputs.namePerson).clear();
+    cy.get(offerElements.inputs.namePerson).type(offerValues.editedValues.namePerson);
 
-    cy.get(inputs.phonePerson).should((input) => {
+    cy.get(offerElements.inputs.phonePerson).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.phoneNumber);
+      expect(value).to.equal(offerValues.createValues.phoneNumber);
     });
 
-    cy.get(inputs.phonePerson).clear();
-    cy.get(inputs.phonePerson).type(editedValues.phoneNumber);
+    cy.get(offerElements.inputs.phonePerson).clear();
+    cy.get(offerElements.inputs.phonePerson).type(offerValues.editedValues.phoneNumber);
 
-    cy.get(inputs.emailPerson).should((input) => {
+    cy.get(offerElements.inputs.emailPerson).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.emailPerson);
+      expect(value).to.equal(offerValues.createValues.emailPerson);
     });
 
-    cy.get(inputs.emailPerson).clear();
-    cy.get(inputs.emailPerson).type(editedValues.emailPerson);
+    cy.get(offerElements.inputs.emailPerson).clear();
+    cy.get(offerElements.inputs.emailPerson).type(offerValues.editedValues.emailPerson);
 
-    cy.get(inputs.unAdm).should((input) => {
+    cy.get(offerElements.inputs.unAdm).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.unAdm);
+      expect(value).to.equal(offerValues.createValues.unAdm);
     });
 
-    cy.get(inputs.unAdm).clear();
-    cy.get(inputs.unAdm).type(editedValues.unAdm);
+    cy.get(offerElements.inputs.unAdm).clear();
+    cy.get(offerElements.inputs.unAdm).type(offerValues.editedValues.unAdm);
 
-    cy.get(buttons.saveContacPerson).click();
+    cy.get(offerElements.buttons.saveContacPerson).click();
 
-    cy.get(check.priorityActions.priority1).should("be.checked");
-    cy.get(check.priorityActions.priority3).should("be.checked");
-    cy.get(check.priorityActions.priority5).should("be.checked");
-    cy.get(check.priorityActions.priority8).should("be.checked");
+    cy.get(offerElements.check.priorityActions.priority1).should("be.checked");
+    cy.get(offerElements.check.priorityActions.priority3).should("be.checked");
+    cy.get(offerElements.check.priorityActions.priority5).should("be.checked");
+    cy.get(offerElements.check.priorityActions.priority8).should("be.checked");
 
-    cy.get(check.priorityActions.priority2).check();
-    cy.get(check.priorityActions.priority4).check();
-    cy.get(check.priorityActions.priority6).check();
+    cy.get(offerElements.check.priorityActions.priority2).check();
+    cy.get(offerElements.check.priorityActions.priority4).check();
+    cy.get(offerElements.check.priorityActions.priority6).check();
 
-    cy.get(buttons.next).click();
+    cy.get(offerElements.buttons.next).click();
   },
   step3: () => {
     cy.wait(2000);
 
-    cy.get(stepsIdentify.step3).should("have.class", "swiper-slide-active");
+    cy.get(offerElements.stepsIdentify.step3).should("have.class", "swiper-slide-active");
 
-    cy.get(check.odss.odss1).should("be.checked");
-    cy.get(check.odss.odss3).should("be.checked");
-    cy.get(check.odss.odss5).should("be.checked");
-    cy.get(check.odss.odss2).should("be.checked");
+    cy.get(offerElements.check.odss.odss1).should("be.checked");
+    cy.get(offerElements.check.odss.odss3).should("be.checked");
+    cy.get(offerElements.check.odss.odss5).should("be.checked");
+    cy.get(offerElements.check.odss.odss2).should("be.checked");
 
-    cy.get(check.odss.odss6).check();
-    cy.get(check.odss.odss4).check();
-    cy.get(check.odss.odss7).check();
+    cy.get(offerElements.check.odss.odss6).check();
+    cy.get(offerElements.check.odss.odss4).check();
+    cy.get(offerElements.check.odss.odss7).check();
 
-    cy.get(buttons.next).click({ force: true });
+    cy.get(offerElements.buttons.next).click({ force: true });
   },
 
   step4: () => {
     cy.wait(2000);
 
-    cy.get(stepsIdentify.step4).should("have.class", "swiper-slide-active");
+    cy.get(offerElements.stepsIdentify.step4).should("have.class", "swiper-slide-active");
 
-    cy.get(inputs.offerName).should((input) => {
+    cy.get(offerElements.inputs.offerName).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.offerName);
+      expect(value).to.equal(offerValues.createValues.offerName);
     });
 
-    cy.get(inputs.offerName).clear();
-    cy.get(inputs.offerName).type(editedValues.offerName);
+    cy.get(offerElements.inputs.offerName).clear();
+    cy.get(offerElements.inputs.offerName).type(offerValues.editedValues.offerName);
 
-    cy.get(inputs.offerObjective).should((input) => {
+    cy.get(offerElements.inputs.offerObjective).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.offerObjective);
+      expect(value).to.equal(offerValues.createValues.offerObjective);
     });
 
-    cy.get(inputs.sinipCode).should((input) => {
+    cy.get(offerElements.inputs.sinipCode).should((input) => {
       const value = input.val();
       expect(value).to.equal("123456");
     });
 
-    cy.get(inputs.offerDescription).should((input) => {
+    cy.get(offerElements.inputs.offerDescription).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.offerDescription);
+      expect(value).to.equal(offerValues.createValues.offerDescription);
     });
 
-    cy.get(inputs.budgetItem).should((input) => {
+    cy.get(offerElements.inputs.budgetItem).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.budget);
+      expect(value).to.equal(offerValues.createValues.budget);
     });
 
-    cy.get(inputs.generalOrCentralProg).should((input) => {
+    cy.get(offerElements.inputs.generalOrCentralProg).should((input) => {
       const value = input.val();
-      expect(value).to.equal("Cypress");
+      expect(value).to.equal(offerValues.createValues.generalOrCentralProg);
     });
 
-    cy.get(inputs.estimatedBudget).should((input) => {
+    cy.get(offerElements.inputs.estimatedBudget).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.budget);
+      expect(value).to.equal(offerValues.createValues.budget);
     });
 
-    cy.get(inputs.decentralizedFunds).should((input) => {
+    cy.get(offerElements.inputs.decentralizedFunds).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.budget);
+      expect(value).to.equal(offerValues.createValues.budget);
     });
 
-    cy.get(inputs.otherSourcesOfFinancing).should((input) => {
+    cy.get(offerElements.inputs.otherSourcesOfFinancing).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.OtherSourcesOfFinancing);
+      expect(value).to.equal(offerValues.createValues.OtherSourcesOfFinancing);
     });
 
-    cy.get(buttons.next).click({ force: true });
+    cy.get(offerElements.buttons.next).click({ force: true });
   },
 
   step5: () => {
     cy.wait(2000);
 
-    cy.get(stepsIdentify.step5).should("have.class", "swiper-slide-active");
+    cy.get(offerElements.stepsIdentify.step5).should("have.class", "swiper-slide-active");
 
-    cy.get(check.populationAge.age3).should("be.checked");
+    cy.get(offerElements.check.populationAge.age3).should("be.checked");
 
-    cy.get(check.populationTeam.team5).should("be.checked");
+    cy.get(offerElements.check.populationTeam.team5).should("be.checked");
 
-    cy.get(check.populationAge.age1).should("be.checked");
+    cy.get(offerElements.check.populationAge.age1).should("be.checked");
 
-    cy.get(check.populationTeam.team1).should("be.checked");
+    cy.get(offerElements.check.populationTeam.team1).should("be.checked");
 
-    cy.get(check.populationSex.sex2).should("be.checked");
+    cy.get(offerElements.check.populationSex.sex2).should("be.checked");
 
-    cy.get(check.populationTeam.team2).should("be.checked");
+    cy.get(offerElements.check.populationTeam.team2).should("be.checked");
 
-    cy.get(check.populationSex.sex1).should("be.checked");
+    cy.get(offerElements.check.populationSex.sex1).should("be.checked");
 
-    cy.get(offerSelects.proyectStatus)
+    cy.get(offerElements.select.proyectStatus)
       .find(":selected")
       .should((options) => {
         const actual = [...options].map((o) => o.value);
@@ -272,17 +231,17 @@ export const stepsValidateAndEdit = {
         ).to.deep.eq(expected);
       });
 
-    cy.get(offerSelects.proyectStatus).select("3", { force: true });
+    cy.get(offerElements.select.proyectStatus).select("3", { force: true });
 
-    cy.get(buttons.addAlly).click();
+    cy.get(offerElements.buttons.addAlly).click();
 
-    cy.get(modals.addAlly).should("to.be.visible");
+    cy.get(offerElements.modals.addAlly).should("to.be.visible");
 
-    cy.get(inputs.sProvide).should((input) => {
+    cy.get(offerElements.inputs.sProvide).should((input) => {
       const value = input.val();
-      expect(value).to.equal(createValues.sProvide);
+      expect(value).to.equal(offerValues.createValues.sProvide);
     });
 
-    cy.get(buttons.saveAlly).click();
+    cy.get(offerElements.buttons.saveAlly).click();
   },
 };

@@ -10,6 +10,9 @@ const loginSuccess = (from) => {
 
     let user, password, name, lastName;
     switch (from) {
+        case "Login":
+        case "Role/Crear":
+        case "Role/Editar":
         case "Usuario/Editar":
         case "Usuario/Crear":
             user = administrador.user;
