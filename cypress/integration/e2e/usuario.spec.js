@@ -3,6 +3,7 @@
 import loginSuccess from "../../support/functions/login";
 import { globalElements, globalValues, sidebarElements, userElements, usersValues } from "../../support/module";
 import { deleteUser } from "../../support/queryDb";
+import { filePath } from "../../support/queryDb/filePath";
 
 describe("Modulo usuario", () => {
     beforeEach(() => {
@@ -117,5 +118,23 @@ describe("Modulo usuario", () => {
         });
 
         cy.get(userElements.buttons.alertConfirm).click();
+    });
+
+    it('Cambio de contraseña - Creacion de usuario', () => {
+        cy.readFile(filePath.urlPassword).then((params) => {
+
+            let arrayLinks = params.split('\n')
+            let lastLink = arrayLinks[arrayLinks.length - 2]
+
+            cy.visit(lastLink)
+
+            cy.get('.card-title')
+
+            cy.get('#nwpass')
+
+            cy.get('#rptpass')
+
+            cy.get('.justify-content-around > :nth-child(2) > .btn')
+        })
     });
 });
