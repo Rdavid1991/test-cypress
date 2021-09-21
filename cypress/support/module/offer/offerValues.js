@@ -16,7 +16,8 @@ export const offerValues = {
         "offerObjective": "CypressPrueba",
         "offerDescription": "Probar la creación de oferta",
         "generalOrCentralProg": "Cypress",
-        "OtherSourcesOfFinancing": "Cypress"
+        "OtherSourcesOfFinancing": "Cypress",
+        "snipiCode":"123456"
     },
     "editedValues": {
         "offerName": "Oferta cypress editado",
@@ -30,6 +31,7 @@ export const offerValues = {
         "offerObjective": "CypressPruebaEditado",
         "offerDescription": "Probar la edicion de oferta",
         "generalOrCentralProg": "CypressEditado",
-        "OtherSourcesOfFinancing": "CypressEditado"
+        "OtherSourcesOfFinancing": "CypressEditado",
+        "snipiCode":"654321"
     }
 }

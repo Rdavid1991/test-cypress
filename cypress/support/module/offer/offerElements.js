@@ -30,11 +30,11 @@ export const offerElements = {
         "addContactPerson": "#addContactPerson"
     },
     "stepsIdentify": {
-        "step1": "[aria-label='1 / 5']",
-        "step2": "[aria-label='2 / 5']",
-        "step3": "[aria-label='3 / 5']",
-        "step4": "[aria-label='4 / 5']",
-        "step5": "[aria-label='5 / 5']"
+        "step1": "[aria-label=\"1 / 5\"]",
+        "step2": "[aria-label=\"2 / 5\"]",
+        "step3": "[aria-label=\"3 / 5\"]",
+        "step4": "[aria-label=\"4 / 5\"]",
+        "step5": "[aria-label=\"5 / 5\"]"
     },
     "select": {
         "proyectStatus": "#proyectStatus"
