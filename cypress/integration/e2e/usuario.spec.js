@@ -61,6 +61,109 @@ describe("Modulo usuario", () => {
         cy.get(userElements.buttons.alertConfirm).click();
     });
 
+    it("Cambio de contraseña", () => {
+
+        cy.readFile(filePath.urlPassword).then((params) => {
+
+            let arrayLinks = params.split('\n')
+            let lastLink = arrayLinks[arrayLinks.length - 2]
+
+            cy.visit(lastLink)
+
+        })
+
+        cy.get('.card-title').should("have.text", "Recuperar contraseña")
+
+        /**
+         * Contraseña no elegible
+         */
+        cy.log("Validacion de contraseña que no cumple requisitos")
+        cy.get('#nwpass').type("abcd1234.")
+        cy.get(':nth-child(1) > .col > .input-group > .invalid-feedback').should("be.visible")
+
+        /**
+         * Contraseña distinta
+         */
+        cy.log("Validacion de contraseña distinta")
+        cy.get('#rptpass').type("1234abcd")
+        cy.get(':nth-child(2) > .col > .input-group > .invalid-feedback').should("be.visible")
+
+        /**
+         * mostrar contraseña 1
+         */
+        cy.get(':nth-child(1) > .col > .input-group > .input-group-prepend > .input-group-text')
+            .click()
+            .children()
+            .should("not.have.class", "fa-eye-slash");
+
+        cy.get('#nwpass').invoke("attr", "type").should("eq", "text");
+
+        /**
+         * Ocultar contraseña 1 en texto
+         */
+        cy.get(':nth-child(1) > .col > .input-group > .input-group-prepend > .input-group-text')
+            .click()
+            .children()
+            .should("have.class", "fa-eye-slash");
+        cy.get('#nwpass').invoke("attr", "type").should("eq", "password");
+
+        /**
+         * Contraseña 1 correcta
+         */
+        cy.get('#nwpass').clear().type("Abcd1234.")
+        cy.get(':nth-child(1) > .col > .input-group > .invalid-feedback').should("not.be.visible")
+
+
+        /**
+        * mostrar contraseña 2
+        */
+        cy.get(':nth-child(2) > .col > .input-group > .input-group-prepend > .input-group-text')
+            .click()
+            .children()
+            .should("not.have.class", "fa-eye-slash");
+
+        cy.get('#rptpass').invoke("attr", "type").should("eq", "text")
+
+        /**
+        * ocultar contraseña 2
+        */
+        cy.get(':nth-child(2) > .col > .input-group > .input-group-prepend > .input-group-text')
+            .click()
+            .children()
+            .should("have.class", "fa-eye-slash");
+
+        cy.get('#rptpass').invoke("attr", "type").should("eq", "password")
+
+        /**
+         * Contraseña 2 correcta
+         */
+        cy.get('#rptpass').clear().type("Abcd1234.")
+        cy.get(':nth-child(2) > .col > .input-group > .invalid-feedback').should("not.be.visible")
+
+        cy.get('.justify-content-around > :nth-child(2) > .btn').click();
+
+        /**
+         * Confirmacion de creacion
+         */
+        cy.get("#swal2-html-container")
+            .should("be.visible")
+            .and("have.text", "Su contraseña a sido actualizada", {
+                force: true,
+            });
+
+        cy.get(".swal2-confirm").click();
+
+        cy.get('#username').should("be.enabled").type("Cypress", { force: true })
+
+        cy.get('#password').should("be.enabled").type("Abcd1234.", { force: true })
+
+        cy.get('#loginForm > .btn').should("be.enabled").click()
+
+        cy.get('#swal2-title')
+            .should("be.visible")
+            .and("contain.text", "Bienvenido(a) Cypress Cypress")
+    });
+
     it("Editar usuario", () => {
         loginSuccess("Usuario/Editar");
 
@@ -120,21 +223,5 @@ describe("Modulo usuario", () => {
         cy.get(userElements.buttons.alertConfirm).click();
     });
 
-    it('Cambio de contraseña - Creacion de usuario', () => {
-        cy.readFile(filePath.urlPassword).then((params) => {
 
-            let arrayLinks = params.split('\n')
-            let lastLink = arrayLinks[arrayLinks.length - 2]
-
-            cy.visit(lastLink)
-
-            cy.get('.card-title')
-
-            cy.get('#nwpass')
-
-            cy.get('#rptpass')
-
-            cy.get('.justify-content-around > :nth-child(2) > .btn')
-        })
-    });
 });
