@@ -6,7 +6,7 @@ import { loginValues, loginElements } from "../module/";
  * @param {String} from modulo desde donde se hace login y accion: Modulo/Accion
  */
 const loginSuccess = (from) => {
-    let { administrador, planificador } = loginValues;
+    let { administrador, planificador, enlace } = loginValues;
 
     let user, password, name, lastName;
     switch (from) {
@@ -26,6 +26,13 @@ const loginSuccess = (from) => {
             name = planificador.name;
             lastName = planificador.lastName;
             break;
+        case "Oferta/aprobar":
+            user = enlace.user;
+            password = enlace.password;
+            name = enlace.name;
+            lastName = enlace.lastName;
+            break;
+
         default:
             break;
     }

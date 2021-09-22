@@ -1,9 +1,24 @@
-import { loginSuccess, stepsOfferEdit, stepsOfferCrear, stepOfferValidateEdit } from "../../support/functions/";
-import { sidebarElements, offerElements, offerValues, globalElements, globalValues } from "../../support/module/";
+import {
+    loginSuccess,
+    stepsOfferEdit,
+    stepsOfferCrear,
+    stepOfferValidateEdit,
+} from "../../support/functions/";
+import {
+    sidebarElements,
+    offerElements,
+    offerValues,
+    globalElements,
+    globalValues,
+} from "../../support/module/";
 import { deleteOffer } from "../../support/queryDb";
 
 const countryCreate = {
-    province: [globalValues.allProvince["01"], globalValues.allProvince["02"], globalValues.allProvince["03"]],
+    province: [
+        globalValues.allProvince["01"],
+        globalValues.allProvince["02"],
+        globalValues.allProvince["03"],
+    ],
 
     district: [
         globalValues.allDistricts["0101"],
@@ -54,7 +69,10 @@ describe("Modulo oferta", () => {
 
         cy.get(sidebarElements.goOffer).should("exist").click();
 
-        cy.get(offerElements.labels.title).should("have.text", offerValues.fixedValues.listTitle);
+        cy.get(offerElements.labels.title).should(
+            "have.text",
+            offerValues.fixedValues.listTitle
+        );
 
         cy.get(offerElements.buttons.btnRegister).click();
 
@@ -72,14 +90,18 @@ describe("Modulo oferta", () => {
 
         cy.get("button[type=submit]").click();
 
-        cy.get("#swal2-html-container").should("have.text", "Oferta creada satisfactoriamente", {
-            force: true,
-        });
+        cy.get("#swal2-html-container").should(
+            "have.text",
+            "Oferta creada satisfactoriamente",
+            {
+                force: true,
+            }
+        );
 
         cy.get(".swal2-confirm").click();
     });
 
-    it("Validar informacion creada", () => {
+    it.skip("Validar informacion creada", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -87,7 +109,10 @@ describe("Modulo oferta", () => {
 
         cy.get(sidebarElements.goOffer).should("exist").click();
 
-        const regex = new RegExp(`^${offerValues.createValues.offerName}$`, "g");
+        const regex = new RegExp(
+            `^${offerValues.createValues.offerName}$`,
+            "g"
+        );
         cy.contains(regex).parent().find("a.btn").click();
 
         cy.get(globalElements.element.loader).should("not.be.visible");
@@ -100,14 +125,18 @@ describe("Modulo oferta", () => {
 
         cy.get("button[type=submit]").click();
 
-        cy.get("#swal2-html-container").should("have.text", "Oferta editada satisfactoriamente", {
-            force: true,
-        });
+        cy.get("#swal2-html-container").should(
+            "have.text",
+            "Oferta editada satisfactoriamente",
+            {
+                force: true,
+            }
+        );
 
         cy.get(".swal2-confirm").click();
     });
 
-    it("Validar informacion Editada", () => {
+    it.skip("Validar informacion Editada", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -115,7 +144,10 @@ describe("Modulo oferta", () => {
 
         cy.get(sidebarElements.goOffer).should("exist").click();
 
-        const regex = new RegExp(`^${offerValues.editedValues.offerName}$`, "g");
+        const regex = new RegExp(
+            `^${offerValues.editedValues.offerName}$`,
+            "g"
+        );
         cy.contains(regex).parent().find("a.btn").click();
 
         cy.get(globalElements.element.loader).should("not.be.visible");
@@ -125,5 +157,14 @@ describe("Modulo oferta", () => {
         stepOfferValidateEdit.step3();
         stepOfferValidateEdit.step4();
         stepOfferValidateEdit.step5();
+    });
+
+    it("Aprovar oferta", () => {
+        loginSuccess("Oferta/aprobar");
+
+        cy.get(sidebarElements.goRoles).should("not.exist");
+        cy.get(sidebarElements.goUsers).should("not.exist");
+
+        cy.get(sidebarElements.goOffer).should("exist").click();
     });
 });

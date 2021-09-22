@@ -19,4 +19,8 @@ export const usersValues = {
         mobilephone: "6522-5356",
         alertSuccess: "Usuario editado satisfactoriamente",
     },
+
+    pwdRecover: {
+        title: "Recuperar contraseña",
+    },
 };

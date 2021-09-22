@@ -14,5 +14,7 @@ export const loginValues = {
     enlace: {
         user: "enlace",
         password: "Abcd1234.",
+        name: "Enlace",
+        lastName: "Colmena"
     },
 };
