@@ -17,8 +17,11 @@ describe("Modulo usuario", () => {
         cy.visit(globalValues.baseURL);
     });
 
+    it("Limpiar datos", () => {
+        deleteUser();
+    })
+
     it("Crear usuario", () => {
-        deleteUser(); //Usuarios en base de datos
 
         loginSuccess("Usuario/Crear");
 

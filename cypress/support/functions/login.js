@@ -26,6 +26,7 @@ const loginSuccess = (from) => {
             name = planificador.name;
             lastName = planificador.lastName;
             break;
+        case "Oferta/rechazar":
         case "Oferta/aprobar":
             user = enlace.user;
             password = enlace.password;

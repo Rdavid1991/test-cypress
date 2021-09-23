@@ -59,8 +59,13 @@ describe("Modulo oferta", () => {
         cy.visit(globalValues.baseURL);
     });
 
-    it("Registrar oferta", () => {
+    it("Limpiar datos", () => {
         deleteOffer();
+    })
+
+    it("Registrar oferta", {
+        retries: 2,
+    }, () => {
 
         loginSuccess("Oferta/Crear");
 
@@ -74,34 +79,36 @@ describe("Modulo oferta", () => {
             offerValues.fixedValues.listTitle
         );
 
-        cy.get(offerElements.buttons.btnRegister).click();
-
-        cy.get(globalElements.element.loader).should("not.be.visible");
-
-        stepsOfferCrear.step1(countryCreate);
-
-        stepsOfferCrear.step2();
-
-        stepsOfferCrear.step3();
-
-        stepsOfferCrear.step4();
-
-        stepsOfferCrear.step5();
-
-        cy.get("button[type=submit]").click();
-
-        cy.get("#swal2-html-container").should(
-            "have.text",
-            "Oferta creada satisfactoriamente",
-            {
-                force: true,
-            }
-        );
-
-        cy.get(".swal2-confirm").click();
+        for (let index = 0; index < 2; index++) {
+            cy.get(offerElements.buttons.btnRegister).click();
+    
+            cy.get(globalElements.element.loader).should("not.be.visible");
+    
+            stepsOfferCrear.step1(countryCreate);
+    
+            stepsOfferCrear.step2();
+    
+            stepsOfferCrear.step3();
+    
+            stepsOfferCrear.step4();
+    
+            stepsOfferCrear.step5();
+    
+            cy.get("button[type=submit]").click();
+    
+            cy.get("#swal2-html-container").should(
+                "have.text",
+                "Oferta creada satisfactoriamente",
+                {
+                    force: true,
+                }
+            );
+    
+            cy.get(".swal2-confirm").click();
+        }
     });
 
-    it.skip("Validar informacion creada", () => {
+    it("Validar informacion creada", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -136,7 +143,7 @@ describe("Modulo oferta", () => {
         cy.get(".swal2-confirm").click();
     });
 
-    it.skip("Validar informacion Editada", () => {
+    it("Validar informacion Editada", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -160,11 +167,74 @@ describe("Modulo oferta", () => {
     });
 
     it("Aprovar oferta", () => {
+        let idOffer;
         loginSuccess("Oferta/aprobar");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
         cy.get(sidebarElements.goUsers).should("not.exist");
 
         cy.get(sidebarElements.goOffer).should("exist").click();
+
+        cy.get('#tab1').then((tab) => {
+            if (!tab.hasClass('active')) {
+                cy.get(tab).click()
+            }
+
+            cy.contains("cypress").parent().then((params) => {
+                idOffer = params.find(".sorting_1").text();
+                cy.get(params).find(".btn").click();
+            });
+        })
+
+        cy.get('#approve').click();
+
+        cy.get(globalElements.sweetAlert.container)
+            .should("contain.text", "Oferta aprovada")
+
+        cy.get(globalElements.sweetAlert.confirm).click();
+
+        cy.get('#tab2').then((tab) => {
+            if (!tab.hasClass('active')) {
+                cy.get(tab).click()
+            }
+
+            cy.contains(idOffer).should("exist")
+        })
+    });
+
+    it("Rechazar oferta", () => {
+        let idOffer;
+        loginSuccess("Oferta/rechazar");
+
+        cy.get(sidebarElements.goRoles).should("not.exist");
+        cy.get(sidebarElements.goUsers).should("not.exist");
+
+        cy.get(sidebarElements.goOffer).should("exist").click();
+
+        cy.get('#tab1').then((tab) => {
+            if (!tab.hasClass('active')) {
+                cy.get(tab).click()
+            }
+
+            cy.contains("cypress").parent().then((params) => {
+                idOffer = params.find(".sorting_1").text();
+                cy.get(params).find(".btn").click();
+            });
+        })
+
+        cy.get('#reject').click();
+
+        cy.get(globalElements.sweetAlert.container)
+            .should("contain.text", "Oferta rechazada")
+
+        cy.get(globalElements.sweetAlert.confirm).click();
+
+        cy.get('#tab3').then((tab) => {
+            if (!tab.hasClass('active')) {
+                cy.get(tab).click()
+            }
+
+            cy.contains(idOffer).should("exist")
+        })
     });
 });

@@ -7,8 +7,12 @@ describe("Manejo de roles", () => {
         cy.visit(globalValues.baseURL);
     });
 
-    it("Registrar role", () => {
+    it("Limpiar datos", () => {
         deleteRole();
+    })
+
+    it("Registrar role", () => {
+
 
         loginSuccess("Role/Crear");
 
