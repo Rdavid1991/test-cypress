@@ -61,12 +61,9 @@ describe("Modulo oferta", () => {
 
     it("Limpiar datos", () => {
         deleteOffer();
-    })
+    });
 
-    it("Registrar oferta", {
-        retries: 2,
-    }, () => {
-
+    it("Registrar oferta", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -79,31 +76,31 @@ describe("Modulo oferta", () => {
             offerValues.fixedValues.listTitle
         );
 
-        for (let index = 0; index < 2; index++) {
+        for (let index = 0; index < 5; index++) {
             cy.get(offerElements.buttons.btnRegister).click();
-    
+
             cy.get(globalElements.element.loader).should("not.be.visible");
-    
+
             stepsOfferCrear.step1(countryCreate);
-    
+
             stepsOfferCrear.step2();
-    
+
             stepsOfferCrear.step3();
-    
+
             stepsOfferCrear.step4();
-    
+
             stepsOfferCrear.step5();
-    
+
             cy.get("button[type=submit]").click();
-    
+
             cy.get("#swal2-html-container").should(
                 "have.text",
-                "Oferta creada satisfactoriamente",
+                "La oferta ha sido creada satisfactoriamente.",
                 {
                     force: true,
                 }
             );
-    
+
             cy.get(".swal2-confirm").click();
         }
     });
@@ -134,7 +131,7 @@ describe("Modulo oferta", () => {
 
         cy.get("#swal2-html-container").should(
             "have.text",
-            "Oferta editada satisfactoriamente",
+            "La oferta ha sido editada satisfactoriamente.",
             {
                 force: true,
             }
@@ -175,31 +172,35 @@ describe("Modulo oferta", () => {
 
         cy.get(sidebarElements.goOffer).should("exist").click();
 
-        cy.get('#tab1').then((tab) => {
-            if (!tab.hasClass('active')) {
-                cy.get(tab).click()
+        cy.get("#tab1").then((tab) => {
+            if (!tab.hasClass("active")) {
+                cy.get(tab).click();
             }
 
-            cy.contains("cypress").parent().then((params) => {
-                idOffer = params.find(".sorting_1").text();
-                cy.get(params).find(".btn").click();
-            });
-        })
+            cy.contains("cypress")
+                .parent()
+                .then((params) => {
+                    idOffer = params.find(".sorting_1").text();
+                    cy.get(params).find(".btn").click();
+                });
+        });
 
-        cy.get('#approve').click();
+        cy.get("#approve").click();
 
-        cy.get(globalElements.sweetAlert.container)
-            .should("contain.text", "Oferta aprovada")
+        cy.get(globalElements.sweetAlert.container).should(
+            "contain.text",
+            "La oferta ha sido aprobada."
+        );
 
         cy.get(globalElements.sweetAlert.confirm).click();
 
-        cy.get('#tab2').then((tab) => {
-            if (!tab.hasClass('active')) {
-                cy.get(tab).click()
+        cy.get("#tab2").then((tab) => {
+            if (!tab.hasClass("active")) {
+                cy.get(tab).click();
             }
 
-            cy.contains(idOffer).should("exist")
-        })
+            cy.contains(idOffer).should("exist");
+        });
     });
 
     it("Rechazar oferta", () => {
@@ -211,30 +212,79 @@ describe("Modulo oferta", () => {
 
         cy.get(sidebarElements.goOffer).should("exist").click();
 
-        cy.get('#tab1').then((tab) => {
-            if (!tab.hasClass('active')) {
-                cy.get(tab).click()
+        cy.get("#tab1").then((tab) => {
+            if (!tab.hasClass("active")) {
+                cy.get(tab).click();
             }
 
-            cy.contains("cypress").parent().then((params) => {
-                idOffer = params.find(".sorting_1").text();
-                cy.get(params).find(".btn").click();
-            });
-        })
+            cy.contains("cypress")
+                .parent()
+                .then((params) => {
+                    idOffer = params.find(".sorting_1").text();
+                    cy.get(params).find(".btn").click();
+                });
+        });
 
-        cy.get('#reject').click();
+        cy.get("#reject").click();
 
-        cy.get(globalElements.sweetAlert.container)
-            .should("contain.text", "Oferta rechazada")
+        cy.get(globalElements.sweetAlert.container).should(
+            "contain.text",
+            "La oferta ha sido rechazada."
+        );
 
         cy.get(globalElements.sweetAlert.confirm).click();
 
-        cy.get('#tab3').then((tab) => {
-            if (!tab.hasClass('active')) {
-                cy.get(tab).click()
+        cy.get("#tab3").then((tab) => {
+            if (!tab.hasClass("active")) {
+                cy.get(tab).click();
             }
 
-            cy.contains(idOffer).should("exist")
-        })
+            cy.contains(idOffer).should("exist");
+        });
+    });
+
+    it("validar dependencia de distritos y corregimientos", () => {
+        loginSuccess("Oferta/Crear");
+        cy.get(sidebarElements.goRoles).should("not.exist");
+        cy.get(sidebarElements.goUsers).should("not.exist");
+
+        cy.get(sidebarElements.goOffer).should("exist").click();
+
+        cy.get(offerElements.labels.title).should(
+            "have.text",
+            offerValues.fixedValues.listTitle
+        );
+
+        cy.get(offerElements.buttons.btnRegister).click();
+
+        cy.get(globalElements.selects.province).select(countryCreate.province, {
+            force: true,
+        });
+
+        const matchProvince = countryCreate.province
+            .join("|")
+            .replace(/\d+:/g, "");
+
+        cy.get(offerElements.buttons.next).click({ force: true });
+
+        cy.get("#districtFeedback > span")
+            .should("be.visible")
+            .invoke("text")
+            .and("match", new RegExp(matchProvince, "g"));
+
+        cy.get(globalElements.selects.district).select(countryCreate.district, {
+            force: true,
+        });
+
+        cy.get(offerElements.buttons.next).click({ force: true });
+
+        const matchDistrict = countryCreate.district
+            .join("|")
+            .replace(/\d+:/g, "");
+
+        cy.get("#countyFeedback > span")
+            .should("be.visible")
+            .invoke("text")
+            .and("match", new RegExp(matchDistrict, "g"));
     });
 });
