@@ -9,10 +9,10 @@ export const offerElements = {
         "saveContacPerson": "#saveContacPerson"
     },
     "inputs": {
-        "namePerson": "#namePerson",
-        "phonePerson": "#phonePerson",
-        "emailPerson": "#emailPerson",
-        "unAdm": "#unAdm",
+        "namePerson": ".col-10 > :nth-child(1) > :nth-child(1) > .form-control",
+        "phonePerson": ".col-10 > :nth-child(1) > :nth-child(2) > .form-control",
+        "emailPerson": ".col-10 > :nth-child(2) > :nth-child(1) > .form-control",
+        "unAdm": ".col-10 > :nth-child(2) > :nth-child(2) > .form-control",
         "sProvide": "#sProvide",
         "otherSourcesOfFinancing": "#OtherSourcesOfFinancing",
         "decentralizedFunds": "#decentralizedFunds",

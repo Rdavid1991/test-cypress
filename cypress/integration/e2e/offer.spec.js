@@ -63,7 +63,7 @@ describe("Modulo oferta", () => {
         deleteOffer();
     });
 
-    it("Registrar oferta", () => {
+    it.only("Registrar oferta", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -76,7 +76,7 @@ describe("Modulo oferta", () => {
             offerValues.fixedValues.listTitle
         );
 
-        for (let index = 0; index < 5; index++) {
+        for (let index = 0; index < 1; index++) {
             cy.get(offerElements.buttons.btnRegister).click();
 
             cy.get(globalElements.element.loader).should("not.be.visible");
@@ -221,7 +221,7 @@ describe("Modulo oferta", () => {
                 .parent()
                 .then((params) => {
                     idOffer = params.find(".sorting_1").text();
-                    cy.get(params).find(".btn").click();
+                    cy.get(params).find(".btn").click({force: true});
                 });
         });
 
