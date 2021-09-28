@@ -20,6 +20,7 @@ const loginSuccess = (from) => {
             name = administrador.name;
             lastName = administrador.lastName;
             break;
+        case "Oferta/Editar":
         case "Oferta/Crear":
             user = planificador.user;
             password = planificador.password;

@@ -59,11 +59,11 @@ describe("Modulo oferta", () => {
         cy.visit(globalValues.baseURL);
     });
 
-    it("Limpiar datos", () => {
+    it.skip("Limpiar datos", () => {
         deleteOffer();
     });
 
-    it.only("Registrar oferta", () => {
+    it("Registrar oferta", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -76,7 +76,7 @@ describe("Modulo oferta", () => {
             offerValues.fixedValues.listTitle
         );
 
-        for (let index = 0; index < 1; index++) {
+        for (let index = 0; index < 5; index++) {
             cy.get(offerElements.buttons.btnRegister).click();
 
             cy.get(globalElements.element.loader).should("not.be.visible");
@@ -176,14 +176,14 @@ describe("Modulo oferta", () => {
             if (!tab.hasClass("active")) {
                 cy.get(tab).click();
             }
-
-            cy.contains("cypress")
-                .parent()
-                .then((params) => {
-                    idOffer = params.find(".sorting_1").text();
-                    cy.get(params).find(".btn").click();
-                });
         });
+
+        cy.contains("cypress")
+            .parent()
+            .then((params) => {
+                idOffer = params.find(".sorting_1").text();
+                cy.get(params).find(".btn").click();
+            });
 
         cy.get("#approve").click();
 
@@ -216,13 +216,17 @@ describe("Modulo oferta", () => {
             if (!tab.hasClass("active")) {
                 cy.get(tab).click();
             }
+        });
 
-            cy.contains("cypress")
-                .parent()
-                .then((params) => {
-                    idOffer = params.find(".sorting_1").text();
-                    cy.get(params).find(".btn").click({force: true});
-                });
+        cy.contains("cypress")
+            .parent()
+            .then((params) => {
+                idOffer = params.find(".sorting_1").text();
+                cy.get(params).find(".btn").click({ force: true });
+            });
+
+        cy.get("#reviewObservation").type("Prueba de rechazo de oferta", {
+            force: true,
         });
 
         cy.get("#reject").click();
@@ -286,5 +290,86 @@ describe("Modulo oferta", () => {
             .should("be.visible")
             .invoke("text")
             .and("match", new RegExp(matchDistrict, "g"));
+    });
+
+    it("Desactivar", () => {
+        let idOffer;
+
+        loginSuccess("Oferta/Editar");
+
+        cy.get(sidebarElements.goRoles).should("not.exist");
+        cy.get(sidebarElements.goUsers).should("not.exist");
+
+        cy.get(sidebarElements.goOffer).should("exist").click();
+
+        cy.get("#tab1").then((tab) => {
+            if (!tab.hasClass("active")) {
+                cy.get(tab).click();
+            }
+        });
+
+        cy.contains("cypress")
+            .parent()
+            .then((params) => {
+                idOffer = params.find(".sorting_1").text();
+                cy.get(params).find("button.btn").click();
+            });
+
+        cy.get("#checkStatus").uncheck();
+
+        cy.get(
+            "#offer_details > .modal-dialog > .modal-content > .modal-header > .close > span"
+        ).click();
+
+        cy.get("#tab4").then((tab) => {
+            if (!tab.hasClass("active")) {
+                cy.get(tab).click();
+            }
+
+            cy.contains(idOffer).should("exist");
+        });
+    });
+
+    it.only("Activar", () => {
+        let idOffer;
+
+        loginSuccess("Oferta/Editar");
+
+        cy.get(sidebarElements.goRoles).should("not.exist");
+        cy.get(sidebarElements.goUsers).should("not.exist");
+
+        cy.get(sidebarElements.goOffer).should("exist").click();
+
+        cy.get("#tab4")
+            .then((tab) => {
+                if (!tab.hasClass("active")) {
+                    cy.get(tab).click();
+                }
+            })
+            .should("have.class", "active");
+
+        cy.contains("td:visible", "cypress")
+            .parent()
+            .then((params) => {
+                idOffer = params.find(".sorting_1").text();
+                cy.get(params).find("button.btn").click({ force: true });
+            });
+
+        cy.pause();
+        cy.get("#checkStatus:visible").should("not.be.checked").check();
+
+        cy.get(".swal2-popup").should("not.be.visible");
+
+        cy.get(
+            "#offer_details > .modal-dialog > .modal-content > .modal-header > .close > span"
+        ).click({ force: true });
+
+        cy.get("#tab1").then((tab) => {
+            if (!tab.hasClass("active")) {
+                cy.get(tab).click();
+            }
+
+            cy.contains(idOffer).should("exist");
+        });
     });
 });
