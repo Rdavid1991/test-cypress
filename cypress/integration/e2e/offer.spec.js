@@ -1,4 +1,3 @@
-
 import {
     loginSuccess,
     stepsOfferEdit,
@@ -226,9 +225,12 @@ describe("Modulo oferta", () => {
                 cy.get(params).find(".btn").click({ force: true });
             });
 
-        cy.get("#reviewObservation").type("Prueba de rechazo de oferta", {
-            force: true,
-        });
+        cy.get("#offer_details:visible")
+            .find("#reviewObservation")
+            .scrollIntoView({ easing: "linear" })
+            .type("Prueba de rechazo de oferta", {
+                force: true,
+            });
 
         cy.get("#reject").click();
 
@@ -318,7 +320,7 @@ describe("Modulo oferta", () => {
 
         cy.get("#checkStatus:visible").uncheck();
 
-        cy.get("#offer_details").scrollTo("bottom", { easing: "swing" })
+        cy.get("#offer_details").scrollTo("bottom", { easing: "swing" });
 
         cy.contains("button:visible", "cerrar").click();
 
@@ -362,7 +364,7 @@ describe("Modulo oferta", () => {
             .should("be.visible")
             .and("contain.text", "La oferta ha sido activada.");
 
-        cy.get("#offer_details").scrollTo("bottom", { easing: "swing" })
+        cy.get("#offer_details").scrollTo("bottom", { easing: "swing" });
 
         cy.contains("button:visible", "cerrar").click({ force: true });
 
@@ -375,7 +377,7 @@ describe("Modulo oferta", () => {
         });
     });
 
-    it.only("Validar edicion por url", () => {
+    it("Validar edicion por url", () => {
         let idOffer;
 
         loginSuccess("Oferta/Editar");
@@ -391,13 +393,13 @@ describe("Modulo oferta", () => {
             }
         });
 
-        cy.get('#offerAproved_processing').should("not.be.visible")
+        cy.get("#offerAproved_processing").should("not.be.visible");
 
         cy.contains("td:visible", "cypress")
             .parent()
             .then((params) => {
                 idOffer = params.find(".sorting_1").text();
-            })
+            });
 
         cy.get("#tab1").then((tab) => {
             if (!tab.hasClass("active")) {
@@ -411,14 +413,19 @@ describe("Modulo oferta", () => {
                 cy.get(params).find("a.btn").click({ force: true });
             });
 
-
         cy.get(globalElements.element.loader).should("not.be.visible");
 
         cy.url().then((params) => {
-            let newUrl = params.replace(/\d+/g, idOffer)
-            cy.visit(newUrl)
-        })
+            let newUrl = params.replace(/\d+$/g, idOffer);
+            cy.visit(newUrl);
+        });
 
-        cy.get(globalElements.sweetAlert.container).should("contain.text", "Esta acción no esta permitida!")
-    })
+        cy.get(globalElements.sweetAlert.container).should(
+            "contain.text",
+            "Esta acción no esta permitida!"
+        );
+        cy.get(globalElements.sweetAlert.confirm).click();
+
+        cy.url().should("contain", "oferta/listar");
+    });
 });

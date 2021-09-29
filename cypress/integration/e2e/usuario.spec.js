@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-import loginSuccess from "../../support/functions/login";
+import { loginSuccess, validateFieldsPassword } from "../../support/functions/";
 import {
     globalElements,
     globalValues,
@@ -19,10 +19,9 @@ describe("Modulo usuario", () => {
 
     it("Limpiar datos", () => {
         deleteUser();
-    })
+    });
 
     it("Crear usuario", () => {
-
         loginSuccess("Usuario/Crear");
 
         cy.get(sidebarElements.goUsers).click();
@@ -37,12 +36,15 @@ describe("Modulo usuario", () => {
         cy.get(userElements.fields.name).type(usersValues.created.name, {
             force: true,
         });
+
         cy.get(userElements.fields.surname).type(usersValues.created.surname, {
             force: true,
         });
+
         cy.get(userElements.fields.email).type(usersValues.created.email, {
             force: true,
         });
+
         cy.get(userElements.fields.username).type(
             usersValues.created.username,
             {
@@ -147,7 +149,9 @@ describe("Modulo usuario", () => {
         /**
          * Contraseña 1 correcta
          */
-        cy.get(userElements.fields.newPassword).clear().type("Abcd1234.");
+        cy.get(userElements.fields.newPassword)
+            .clear()
+            .type(usersValues.changePassword.firstChange);
         cy.get(userElements.alert.feedbackPassword1).should("not.be.visible");
 
         /**
@@ -177,29 +181,160 @@ describe("Modulo usuario", () => {
         /**
          * Contraseña 2 correcta
          */
-        cy.get(userElements.fields.repeatPassword).clear().type("Abcd1234.");
+        cy.get(userElements.fields.repeatPassword)
+            .clear()
+            .type(usersValues.changePassword.firstChange);
         cy.get(userElements.alert.feedbackPassword2).should("not.be.visible");
 
-        cy.get(userElements.buttons.savePassword).click();
+        cy.get(userElements.buttons.savePassword).click({ force: true });
 
         /**
          * Confirmacion de creacion
          */
         cy.get(globalElements.sweetAlert.container)
             .should("be.visible")
-            .and("have.text", "Su contraseña a sido actualizada", {
+            .and("have.text", "Su contraseña a sido actualizada.", {
                 force: true,
             });
 
         cy.get(globalElements.sweetAlert.confirm).click();
+    });
 
+    it("Cambiar contraseña desde perfil", () => {
+        /**
+         * Primer inicio de session
+         */
         cy.get(loginElements.fields.user)
             .should("be.enabled")
             .type("Cypress", { force: true });
 
         cy.get(loginElements.fields.password)
             .should("be.enabled")
-            .type("Abcd1234.", { force: true });
+            .type(usersValues.changePassword.firstChange, { force: true });
+
+        cy.get(loginElements.buttons.btnLogin).should("be.enabled").click();
+
+        cy.get(globalElements.sweetAlert.title)
+            .should("be.visible")
+            .and("contain.text", "Bienvenido(a) Cypress Cypress");
+
+        cy.get(".dropdown-toggle:visible")
+            .click()
+            .next()
+            .contains("a:visible", "Mi perfil")
+            .click();
+
+        cy.get("#oldpass")
+            .scrollIntoView({ easing: "swing" })
+            .then((element) => {
+                validateFieldsPassword(
+                    element,
+                    usersValues.changePassword.firstChange
+                );
+            });
+
+        cy.get("#newpass")
+            .scrollIntoView({ easing: "swing" })
+            .then((element) => {
+                validateFieldsPassword(
+                    element,
+                    usersValues.changePassword.profileChange
+                );
+            });
+
+        cy.get("#reptpass")
+            .scrollIntoView({ easing: "swing" })
+            .then((element) => {
+                validateFieldsPassword(
+                    element,
+                    usersValues.changePassword.profileChange
+                );
+            });
+
+        cy.get(".btn-success").click({ force: true });
+
+        cy.get(globalElements.sweetAlert.container)
+            .should("be.visible")
+            .and("have.text", "Su contraseña a sido actualizada.", {
+                force: true,
+            });
+
+        cy.get(globalElements.sweetAlert.confirm).click();
+
+        cy.get(".dropdown-toggle:visible")
+            .click()
+            .next()
+            .contains("a:visible", "Cerrar sesión")
+            .click();
+
+        /**
+         * Segundo inicio de session
+         */
+        cy.get(loginElements.fields.user)
+            .should("be.enabled")
+            .type("Cypress", { force: true });
+
+        cy.get(loginElements.fields.password)
+            .should("be.enabled")
+            .type(usersValues.changePassword.profileChange, { force: true });
+
+        cy.get(loginElements.buttons.btnLogin).should("be.enabled").click();
+
+        cy.get(globalElements.sweetAlert.title)
+            .should("be.visible")
+            .and("contain.text", "Bienvenido(a) Cypress Cypress");
+
+        cy.get(".card-text").click({ force: true });
+    });
+
+    it("Cambio de contraseña olvidada", () => {
+        cy.get(".card-text").click({ force: true });
+
+        cy.get("#email").type(usersValues.created.email, {
+            force: true,
+        });
+
+        cy.get(".modal-footer > .btn").click({ force: true });
+
+        cy.readFile(filePath.urlPassword).then((params) => {
+            let arrayLinks = params.split("\n");
+            let lastLink = arrayLinks[arrayLinks.length - 2];
+            cy.visit(lastLink);
+        });
+
+        cy.get(userElements.fields.newPassword)
+            .clear()
+            .type(usersValues.changePassword.emailChange);
+        cy.get(userElements.alert.feedbackPassword1).should("not.be.visible");
+
+        cy.get(userElements.fields.repeatPassword)
+            .clear()
+            .type(usersValues.changePassword.emailChange);
+        cy.get(userElements.alert.feedbackPassword2).should("not.be.visible");
+
+        cy.get(userElements.buttons.savePassword).click({ force: true });
+
+        /**
+         * Confirmacion de creacion
+         */
+        cy.get(globalElements.sweetAlert.container)
+            .should("be.visible")
+            .and("have.text", "Su contraseña a sido actualizada.", {
+                force: true,
+            });
+
+        cy.get(globalElements.sweetAlert.confirm).click();
+
+        /**
+         * Primer inicio de session
+         */
+        cy.get(loginElements.fields.user)
+            .should("be.enabled")
+            .type("Cypress", { force: true });
+
+        cy.get(loginElements.fields.password)
+            .should("be.enabled")
+            .type(usersValues.changePassword.emailChange, { force: true });
 
         cy.get(loginElements.buttons.btnLogin).should("be.enabled").click();
 

@@ -23,4 +23,10 @@ export const usersValues = {
     pwdRecover: {
         title: "Recuperar contraseña",
     },
+
+    changePassword:{
+        firstChange : "Abcd1234.",
+        profileChange: "Abcd12345.",
+        emailChange : "Abcd123456."
+    }
 };
