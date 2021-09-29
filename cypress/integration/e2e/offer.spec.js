@@ -1,3 +1,4 @@
+
 import {
     loginSuccess,
     stepsOfferEdit,
@@ -308,18 +309,18 @@ describe("Modulo oferta", () => {
             }
         });
 
-        cy.contains("cypress")
+        cy.contains("td:visible", "cypress")
             .parent()
             .then((params) => {
                 idOffer = params.find(".sorting_1").text();
                 cy.get(params).find("button.btn").click();
             });
 
-        cy.get("#checkStatus").uncheck();
+        cy.get("#checkStatus:visible").uncheck();
 
-        cy.get(
-            "#offer_details > .modal-dialog > .modal-content > .modal-header > .close > span"
-        ).click();
+        cy.get("#offer_details").scrollTo("bottom", { easing: "swing" })
+
+        cy.contains("button:visible", "cerrar").click();
 
         cy.get("#tab4").then((tab) => {
             if (!tab.hasClass("active")) {
@@ -330,7 +331,7 @@ describe("Modulo oferta", () => {
         });
     });
 
-    it.only("Activar", () => {
+    it("Activar", () => {
         let idOffer;
 
         loginSuccess("Oferta/Editar");
@@ -355,14 +356,15 @@ describe("Modulo oferta", () => {
                 cy.get(params).find("button.btn").click({ force: true });
             });
 
-        cy.pause();
         cy.get("#checkStatus:visible").should("not.be.checked").check();
 
-        cy.get(".swal2-popup").should("not.be.visible");
+        cy.get(".swal2-popup")
+            .should("be.visible")
+            .and("contain.text", "La oferta ha sido activada.");
 
-        cy.get(
-            "#offer_details > .modal-dialog > .modal-content > .modal-header > .close > span"
-        ).click({ force: true });
+        cy.get("#offer_details").scrollTo("bottom", { easing: "swing" })
+
+        cy.contains("button:visible", "cerrar").click({ force: true });
 
         cy.get("#tab1").then((tab) => {
             if (!tab.hasClass("active")) {
@@ -372,4 +374,51 @@ describe("Modulo oferta", () => {
             cy.contains(idOffer).should("exist");
         });
     });
+
+    it.only("Validar edicion por url", () => {
+        let idOffer;
+
+        loginSuccess("Oferta/Editar");
+
+        cy.get(sidebarElements.goRoles).should("not.exist");
+        cy.get(sidebarElements.goUsers).should("not.exist");
+
+        cy.get(sidebarElements.goOffer).should("exist").click();
+
+        cy.get("#tab2").then((tab) => {
+            if (!tab.hasClass("active")) {
+                cy.get(tab).click();
+            }
+        });
+
+        cy.get('#offerAproved_processing').should("not.be.visible")
+
+        cy.contains("td:visible", "cypress")
+            .parent()
+            .then((params) => {
+                idOffer = params.find(".sorting_1").text();
+            })
+
+        cy.get("#tab1").then((tab) => {
+            if (!tab.hasClass("active")) {
+                cy.get(tab).click();
+            }
+        });
+
+        cy.contains("cypress")
+            .parent()
+            .then((params) => {
+                cy.get(params).find("a.btn").click({ force: true });
+            });
+
+
+        cy.get(globalElements.element.loader).should("not.be.visible");
+
+        cy.url().then((params) => {
+            let newUrl = params.replace(/\d+/g, idOffer)
+            cy.visit(newUrl)
+        })
+
+        cy.get(globalElements.sweetAlert.container).should("contain.text", "Esta acción no esta permitida!")
+    })
 });

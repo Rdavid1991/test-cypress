@@ -1,5 +1,5 @@
 export const globalValues = {
-  baseURL: "http://localhost:8080/PreCOLMENA.WebApp",
+  baseURL: "http://localhost/PreCOLMENA.WebApp",
   allProvince: {
     "01": "01:BOCAS DEL TORO",
     "02": "02:COCLÉ",
