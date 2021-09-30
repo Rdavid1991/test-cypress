@@ -63,7 +63,7 @@ describe("Modulo oferta", () => {
         deleteOffer();
     });
 
-    it("Registrar oferta", () => {
+    it.only("Registrar oferta", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -105,7 +105,7 @@ describe("Modulo oferta", () => {
         }
     });
 
-    it("Validar informacion creada", () => {
+    it.only("Validar informacion creada", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -140,7 +140,7 @@ describe("Modulo oferta", () => {
         cy.get(".swal2-confirm").click();
     });
 
-    it("Validar informacion Editada", () => {
+    it.only("Validar informacion Editada", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
