@@ -33,10 +33,7 @@ export const stepOfferValidateEdit = {
                 expect(actual, `Corregimientos actuales ${actual} y esperados ${expected}`).to.deep.eq(expected);
             });
 
-        cy.get(offerElements.inputs.place).should((input) => {
-            const actual = input.val();
-            expect(actual).to.equal(offerValues.editedValues.place);
-        });
+        cy.get(offerElements.inputs.place).should("be.disabled");
 
         cy.get(offerElements.check.watchColmena.colmena3).should("be.checked");
         cy.get(offerElements.check.watchColmena.colmena7).should("be.checked");

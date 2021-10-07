@@ -54,16 +54,16 @@ const countryEdit = {
     ],
 };
 
-describe("Modulo oferta", () => {
+describe.only("Modulo oferta", () => {
     beforeEach(() => {
         cy.visit(globalValues.baseURL);
     });
 
-    it.skip("Limpiar datos", () => {
+    it("Limpiar datos", () => {
         deleteOffer();
     });
 
-    it.only("Registrar oferta", () => {
+    it("Registrar oferta", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -105,7 +105,7 @@ describe("Modulo oferta", () => {
         }
     });
 
-    it.only("Validar informacion creada", () => {
+    it("Validar informacion creada", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -140,7 +140,7 @@ describe("Modulo oferta", () => {
         cy.get(".swal2-confirm").click();
     });
 
-    it.only("Validar informacion Editada", () => {
+    it("Validar informacion Editada", () => {
         loginSuccess("Oferta/Crear");
 
         cy.get(sidebarElements.goRoles).should("not.exist");
@@ -163,7 +163,7 @@ describe("Modulo oferta", () => {
         stepOfferValidateEdit.step5();
     });
 
-    it("Aprovar oferta", () => {
+    it("Aprobar oferta", () => {
         let idOffer;
         loginSuccess("Oferta/aprobar");
 
@@ -186,6 +186,8 @@ describe("Modulo oferta", () => {
             });
 
         cy.get("#approve").click();
+
+        cy.get(".swal2-container").find(".swal2-confirm ").click();
 
         cy.get(globalElements.sweetAlert.container).should(
             "contain.text",
@@ -233,6 +235,8 @@ describe("Modulo oferta", () => {
             });
 
         cy.get("#reject").click();
+
+        cy.get(".swal2-container").find(".swal2-confirm ").click();
 
         cy.get(globalElements.sweetAlert.container).should(
             "contain.text",

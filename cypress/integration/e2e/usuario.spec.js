@@ -13,7 +13,7 @@ import { deleteUser } from "../../support/queryDb";
 import { filePath } from "../../support/queryDb/filePath";
 
 describe("Modulo usuario", () => {
-    beforeEach(() => {
+    before(() => {
         cy.visit(globalValues.baseURL);
     });
 

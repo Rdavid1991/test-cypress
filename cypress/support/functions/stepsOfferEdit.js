@@ -44,10 +44,7 @@ export const stepsOfferEdit = {
 
         cy.get(globalElements.selects.county).select(countryEdit.counties, { force: true });
 
-        cy.get(offerElements.inputs.place).should((input) => {
-            const actual = input.val();
-            expect(actual).to.equal(offerValues.createValues.place);
-        });
+        cy.get(offerElements.inputs.place).should("be.disabled");
 
         cy.get(offerElements.inputs.place).clear({force:true});
         cy.get(offerElements.inputs.place).type(offerValues.editedValues.place, {force: true});
