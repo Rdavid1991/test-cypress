@@ -125,9 +125,9 @@ export const stepsOfferCrear = {
 
     cy.get(offerElements.select.proyectStatus).select("2", { force: true });
 
-    cy.get(offerElements.buttons.addAlly).click({ force: true });
+    cy.get(offerElements.buttons.addAllyTypeA).click({ force: true });
 
-    cy.get(offerElements.modals.addAlly).should("have.class", "show");
+    cy.get(offerElements.modals.addAllyTypeA).should("have.class", "show");
 
     cy.get(offerElements.inputs.sProvide).type(offerValues.createValues.sProvide, { force: true });
 

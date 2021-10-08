@@ -232,9 +232,9 @@ export const stepsOfferEdit = {
 
         cy.get(offerElements.select.proyectStatus).select("3", { force: true });
 
-        cy.get(offerElements.buttons.addAlly).click();
+        cy.get(offerElements.buttons.addAllyTypeA).click();
 
-        cy.get(offerElements.modals.addAlly).should("to.be.visible");
+        cy.get(offerElements.modals.addAllyTypeA).should("to.be.visible");
 
         cy.get(offerElements.inputs.sProvide).should((input) => {
             const value = input.val();

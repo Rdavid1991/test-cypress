@@ -3,7 +3,7 @@ export const offerElements = {
     "buttons": {
         "btnRegister": "#addOffer",
         "next": "#next",
-        "addAlly": "button[data-target='#addAlly']",
+        "addAllyTypeA": "button[data-target='#addAllyTypeA']",
         "addContactPerson": "button[data-target='#addContactPerson']",
         "saveAlly": "#saveAlly",
         "saveContacPerson": "#saveContacPerson"
@@ -26,7 +26,7 @@ export const offerElements = {
         "place": "#place"
     },
     "modals": {
-        "addAlly": "#addAlly",
+        "addAllyTypeA": "#addAllyTypeA",
         "addContactPerson": "#addContactPerson"
     },
     "stepsIdentify": {
