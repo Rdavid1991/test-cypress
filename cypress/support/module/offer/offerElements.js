@@ -37,7 +37,10 @@ export const offerElements = {
         "step5": "[aria-label=\"5 / 5\"]"
     },
     "select": {
-        "proyectStatus": "#proyectStatus"
+        "proyectStatus": "#proyectStatus",
+        "strategicAxis": "[name='strategicAxis']",
+        "transverseAxis": "[name='transverseAxis']",
+        "offerType":"[name='offerType']"
     },
     "check": {
         "priorityActions": {

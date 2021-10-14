@@ -3,14 +3,14 @@ import {
     stepsOfferEdit,
     stepsOfferCrear,
     stepOfferValidateEdit,
-} from "../../support/functions/";
+} from "../../support/functions";
 import {
     sidebarElements,
     offerElements,
     offerValues,
     globalElements,
     globalValues,
-} from "../../support/module/";
+} from "../../support/module";
 import { deleteOffer } from "../../support/queryDb";
 
 const countryCreate = {
@@ -59,7 +59,7 @@ describe.only("Modulo oferta", () => {
         cy.visit(globalValues.baseURL);
     });
 
-    it("Limpiar datos", () => {
+    it.skip("Limpiar datos", () => {
         deleteOffer();
     });
 
